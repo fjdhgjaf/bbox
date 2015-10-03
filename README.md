@@ -1,4 +1,4 @@
-Host Dzire seedbox install script
+BestBox seedbox install script
 ==========
 Installation
 --------------
