@@ -677,7 +677,16 @@ else
 fi
 
 clear
-
+bldgrn='\e[1;32m' # Green
+txtrst='\e[0m'    # Text Reset
+echo -e "${bldgrn}#${txtrst}"
+echo -e "${bldgrn}# |--------------------------------------------------------------|${txtrst}"
+echo -e "${bldgrn}# | The script thank you for Notos (notos.korsan@gmail.com)      |${txtrst}"
+echo -e "${bldgrn}# |--------------------------------------------------------------|${txtrst}"
+echo -e "${bldgrn}# | The script was further developed Tiby08 (tiby0108@gmail.com) |${txtrst}"
+echo -e "${bldgrn}# |--------------------------------------------------------------|${txtrst}"
+echo -e "${bldgrn}#"
+echo ""
 echo ""
 echo "System will reboot now, but don't close this window until you take note of the port number: $NEWSSHPORT1"
 
