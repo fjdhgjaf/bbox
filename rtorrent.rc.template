@@ -80,7 +80,7 @@ pieces.memory.max.set = 4G
  
 # max number of files to keep open simultaneously 
 # max_open_files = 192 
-network.max_open_files.set = 192
+network.max_open_files.set = 40
  
 # max_open_http = 32 
 network.http.max_open.set = 32
