@@ -12,22 +12,22 @@
 #
 #
 
-sudo mkdir -p /etc/hostdz/ssl/CA
-sudo chmod 777 /etc/hostdz/ssl/CA
-cd /etc/hostdz/ssl/CA
+sudo mkdir -p /etc/bbox/ssl/CA
+sudo chmod 777 /etc/bbox/ssl/CA
+cd /etc/bbox/ssl/CA
 
-IPADDRESS1=`cat /etc/hostdz/hostname.info`
-NEWUSER1=`cat /etc/hostdz/mainuser.info`
+IPADDRESS1=`cat /etc/bbox/hostname.info`
+NEWUSER1=`cat /etc/bbox/mainuser.info`
 SERVICENAME1=$1
 SUBJ1="/C=US/ST=Denial/L=Springfield/O=Dis/CN=$IPADDRESS1/emailAddress=root@$NEWUSER1.com/OU=$NEWUSER1"
-CERTPASS1=`cat /etc/hostdz/certpass.info`
+CERTPASS1=`cat /etc/bbox/certpass.info`
 
-sudo openssl genrsa 1024 | sudo tee /etc/hostdz/ssl/CA/$SERVICENAME1.key
-sudo openssl req -new -x509 -nodes -sha1 -days 365 -key /etc/hostdz/ssl/CA/$SERVICENAME1.key -config /etc/hostdz/ssl/CA/caconfig.cnf -batch -subj $SUBJ1 | sudo tee /etc/hostdz/ssl/CA/$SERVICENAME1.cert
-sudo openssl ca -batch -keyfile /etc/hostdz/ssl/CA/private/cakey.pem -passin pass:$CERTPASS1 -subj $SUBJ1 -out /etc/hostdz/ssl/CA/$SERVICENAME1.pem -config /etc/hostdz/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -ss_cert /etc/hostdz/ssl/CA/$SERVICENAME1.cert
-sudo cp /etc/hostdz/ssl/CA/$SERVICENAME1.* /etc/hostdz/ssl/
-sudo chmod 600 /etc/hostdz/ssl/*
-sudo chmod 644 /etc/hostdz/ssl/cert.pem
-sudo chmod 644 /etc/hostdz/ssl/key.pem
+sudo openssl genrsa 1024 | sudo tee /etc/bbox/ssl/CA/$SERVICENAME1.key
+sudo openssl req -new -x509 -nodes -sha1 -days 365 -key /etc/bbox/ssl/CA/$SERVICENAME1.key -config /etc/bbox/ssl/CA/caconfig.cnf -batch -subj $SUBJ1 | sudo tee /etc/bbox/ssl/CA/$SERVICENAME1.cert
+sudo openssl ca -batch -keyfile /etc/bbox/ssl/CA/private/cakey.pem -passin pass:$CERTPASS1 -subj $SUBJ1 -out /etc/bbox/ssl/CA/$SERVICENAME1.pem -config /etc/bbox/ssl/CA/caconfig.cnf -passin pass:$CERTPASS1 -ss_cert /etc/bbox/ssl/CA/$SERVICENAME1.cert
+sudo cp /etc/bbox/ssl/CA/$SERVICENAME1.* /etc/bbox/ssl/
+sudo chmod 600 /etc/bbox/ssl/*
+sudo chmod 644 /etc/bbox/ssl/cert.pem
+sudo chmod 644 /etc/bbox/ssl/key.pem
 
 ##################### LAST LINE ###########

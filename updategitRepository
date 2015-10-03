@@ -10,9 +10,9 @@
 # |--------------------------------------------------------------|
 #
                         
-cd /etc/hostdz/
+cd /etc/bbox/
 sudo git stash
 sudo git pull
-sudo bash /etc/hostdz/updateExecutables
+sudo bash /etc/bbox/updateExecutables
 
 ##################### LAST LINE ###########

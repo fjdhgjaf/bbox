@@ -15,10 +15,10 @@ fi
 
 TSFSV=$1
 
-cd /etc/hostdz/
+cd /etc/bbox/
 sudo git fetch --all
 sudo git stash
 sudo git checkout -b $TSFSV origin/$TSFSV
 sudo git pull
 
-sudo bash /etc/hostdz/updateExecutables
+sudo bash /etc/bbox/updateExecutables

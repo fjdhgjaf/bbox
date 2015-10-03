@@ -14,6 +14,8 @@
   RewriteEngine On
   RewriteCond %{LA-U:remote_user} !^$
   RewriteRule ^/rutorrent/downloads(.*) /home/%{LA-U:remote_user}/downloads/manual/$1
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule (.*) https://%{HTTP_HOST}:443%{REQUEST_URI}
 
   <Location /var/www/rutorrent/downloads/>
     Order Deny,Allow
@@ -866,8 +868,13 @@
   ServerName <servername>
   NameVirtualHost *:443
   SSLEngine on
-  SSLCertificateFile /etc/hostdz/ssl/cert.pem
-  SSLCertificateKeyFile /etc/hostdz/ssl/key.pem
+  SSLCertificateFile /etc/apache2/bestbox_all_ssl.crt
+  SSLCertificateKeyFile /etc/apache2/bestbox_all_ssl.key
+
+  SSLProtocol all -SSLv2
+  SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM
+  SSLCertificateChainFile /etc/apache2/sub.class2.server.ca.pem
+
   RewriteEngine On
   RewriteCond %{LA-U:remote_user} !^$
   RewriteRule ^/rutorrent/downloads(.*) /home/%{LA-U:remote_user}/downloads/manual/$1

@@ -1,1 +1,0 @@
-<?php $topDirectory = "/home"; ?>

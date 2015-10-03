@@ -30,31 +30,6 @@ sleep 3
 echo "Start rTorrent..."
 screen -d -m -S rtorrent rtorrent
 
-sleep 3
-echo "Start IRSSI..."
-screen -d -m -S irssi irssi
-
-if [[ -a /etc/hostdz/sabnzbd/SABnzbd.py ]]; then
-   sleep 3
-   echo "Start sabnzbdplus..."
-   /etc/hostdz/sabnzbd/SABnzbd.py --server 0.0.0.0:<http_port> --daemon --config-file=<homedir>/.sabnzbd/sabnzbd.ini --logging 2 --https <https_port>
-fi
-
-if [[ -a $HOME/.config/deluge/web.conf ]]; then
-  sleep 3
-  echo "Starting Deluge..."
-  deluged
-  screen -d -m -S deluge-web deluge-web
-fi
-
-if [[ -a /etc/transmission-daemon/ ]]; then
-  sleep 3
-  echo "Starting Transmission..."
-  /etc/init.d/transmission-daemon start
-fi
-
-if [[ -a $HOME/.utserver/ ]]; then
-  sleep 3
-  echo "Starting uTorrent..."
-  utserver -settingspath /home/<username>/.utserver/ -configfile /home/<username>/.utserver/utserver.conf -logfile /home/<username>/.utserver/utserver.log -pidfile /home/<username>/.utserver/utserver.pid -daemon
-fi
+#sleep 3
+#echo "Start IRSSI..."
+#screen -d -m -S irssi irssi

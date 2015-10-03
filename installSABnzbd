@@ -1,4 +1,4 @@
-cd /etc/hostdz
+cd /etc/bbox
 sudo apt-get --yes purge sabnzbdplus
 sudo apt-get --yes install python-cheetah
 sudo apt-get --yes install python-pyopenssl

@@ -44,21 +44,21 @@ if [ "$RTORRENT1" = "0.9.3" ]; then
   LIBTORRENT1=0.13.3
 fi
 
-if [ ! -d /etc/hostdz/source/rtorrent-$RTORRENT1/ ]; then
-  sudo tar xvfz /etc/hostdz/rtorrent-$RTORRENT1.tar.gz -C /etc/hostdz/source/
-  sudo tar xvfz /etc/hostdz/libtorrent-$LIBTORRENT1.tar.gz -C /etc/hostdz/source/
+if [ ! -d /etc/bbox/source/rtorrent-$RTORRENT1/ ]; then
+  sudo tar xvfz /etc/bbox/rtorrent-$RTORRENT1.tar.gz -C /etc/bbox/source/
+  sudo tar xvfz /etc/bbox/libtorrent-$LIBTORRENT1.tar.gz -C /etc/bbox/source/
 fi
 
 sudo killall rtorrent
 sudo kill -9 `sudo ps aux | grep rtorrent | grep -v grep | awk '{print $2}' | cut -d. -f 1` &> /dev/null
 
-cd /etc/hostdz/source/libtorrent-$LIBTORRENT1
+cd /etc/bbox/source/libtorrent-$LIBTORRENT1
 sudo ./autogen.sh
 sudo ./configure --prefix=/usr
 sudo make -j2
 sudo make install
 
-cd /etc/hostdz/source/rtorrent-$RTORRENT1
+cd /etc/bbox/source/rtorrent-$RTORRENT1
 sudo ./autogen.sh
 sudo ./configure --prefix=/usr --with-xmlrpc-c
 sudo make -j2

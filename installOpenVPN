@@ -10,7 +10,7 @@
 # |--------------------------------------------------------------|
 #
 # OpenVPN in beta --- Tested on Ubuntu 12.04 64Bit
-  sudo bash /etc/hostdz/ovpni
+  sudo bash /etc/bbox/ovpni
 #
 #
 #

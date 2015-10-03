@@ -1,7 +1,7 @@
 NEWUSER1=lefteris
 HOMEJAILED1=/home/lefteris
 
-cd /etc/hostdz/
+cd /etc/bbox/
 sudo wget http://libtorrent.rakshasa.no/downloads/rtorrent_fast_resume.pl
 sudo chmod 755 rtorrent_fast_resume.pl
 

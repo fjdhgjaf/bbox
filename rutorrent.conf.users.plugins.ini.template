@@ -12,7 +12,7 @@
 ;; For setting individual plugin permissions you must write something like that:
 ;;
 ;; [ratio]
-;; enabled = yes ;; also may be "yes", in this case user can control plugins state from UI
+;; enabled = yes ;; also may be "user-defined", in this case user can control plugins state from UI
 ;; canChangeToolbar = yes
 ;; canChangeMenu = yes
 ;; canChangeOptions = no
@@ -23,7 +23,7 @@
 ;; canBeShutdowned = yes
 
 [default]
-enabled = yes
+enabled = user-defined
 canChangeToolbar = yes
 canChangeMenu = yes
 canChangeOptions = yes
@@ -39,10 +39,10 @@ canBeShutdowned = yes
 enabled = yes
 
 [cpuload]
-enabled = yes
+enabled = no
 
 [create]
-enabled = yes
+enabled = no
 
 [datadir]
 enabled = yes
@@ -70,91 +70,91 @@ enabled = yes
 [autotools]
 enabled = yes
 [cookies]
-enabled = yes
+enabled = no
 [data]
-enabled = yes
+enabled = user-defined
 [edit]
-enabled = yes
+enabled = user-defined
 [extratio]
-enabled = yes
+enabled = user-defined
 [extsearch]
-enabled = yes
+enabled = user-defined
 [filedrop]
-enabled = yes
+enabled = no
 [geoip]
-enabled = yes
+enabled = user-defined
 [httprpc]
 enabled = yes
 canBeShutdowned = no
 [pausewebui]
-enabled = yes
+enabled = no
 [ratio]
-enabled = yes
+enabled = user-defined
 [ratiocolor]
-enabled = yes
+enabled = user-defined
 [rss]
-enabled = yes
+enabled = user-defined
 [_task]
 enabled = yes
 [throttle]
-enabled = yes
+enabled = user-defined
 [titlebar]
-enabled = yes
+enabled = user-defined
 [unpack]
-enabled = yes
+enabled = no
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Disabled
 
 [chat]
-enabled = yes
+enabled = no
 
 [chunks]
-enabled = yes
+enabled = no
 
 [feeds]
-enabled = yes
+enabled = no
 
 [fileshare]
-enabled = yes
+enabled = no
 
 [history]
-enabled = yes
+enabled = no
 
 [instantsearch]
-enabled = yes
+enabled = no
 
 [ipad]
-enabled = yes
+enabled = no
 
 [logoff]
-enabled = yes
+enabled = no
 
 [loginmgr]
-enabled = yes
+enabled = no
 
 [mediainfo]
-enabled = yes
+enabled = no
 
 [check_port]
-enabled = yes
+enabled = no
 
 [retrackers]
-enabled = yes
+enabled = no
 
 [rpc]
-enabled = yes
+enabled = no
 
 [rssurlrewrite]
-enabled = yes
+enabled = no
 
 [rutracker_check]
-enabled = yes
+enabled = no
 
 [scheduler]
-enabled = yes
+enabled = no
 
 [screenshots]
-enabled = yes
+enabled = no
 
 [seedingtime]
 enabled = yes
@@ -163,22 +163,12 @@ enabled = yes
 enabled = yes
 
 ;;[filemanager]
-;;enabled = yes ;;; disabled in chroot jail
+;;enabled = user-defined ;;; disabled in chroot jail
 ;;[fileupload]
 ;;enabled = yes
 ;;[mediastream]
 ;;enabled = yes
 
 
-
 [autodl-irssi]
-enabled = yes
-
-[fileupload]
-enabled = yes
-
-[mediastream]
-enabled = yes
-
-[filemanager]
-enabled = yes
+enabled = no

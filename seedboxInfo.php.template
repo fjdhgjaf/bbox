@@ -6,7 +6,7 @@
 <?php
   error_reporting(E_ALL);
 
-  $dir = '/etc/hostdz/users/';
+  $dir = '/etc/bbox/users/';
   $files = scandir($dir);
 
   foreach($files as $index=>$file) {
@@ -43,7 +43,7 @@
   }
 
   function getScriptVersion() {
-    $data = file("/etc/hostdz/version.info");
+    $data = file("/etc/bbox/version.info");
     return $data[0];
   }
 ?>

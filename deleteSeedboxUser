@@ -36,6 +36,6 @@ sudo perl -pi -e "s/^$NEWUSER1\:.*\n$//g" /etc/apache2/htpasswd
 
 sudo rm -r /etc/init/rtorrent.$NEWUSER1.conf
 sudo rm -r /var/www/rutorrent/conf/users/$NEWUSER1
-sudo rm -r /etc/hostdz/users/$NEWUSER1.info
+sudo rm -r /etc/bbox/users/$NEWUSER1.info
 sudo rm -r /var/www/rutorrent/share/users/$NEWUSER1
 sudo rm -r /var/run/screen/S-$NEWUSER1

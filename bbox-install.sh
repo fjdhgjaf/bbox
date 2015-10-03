@@ -8,11 +8,11 @@
 # |--------------------------------------------------------------|
 # | The script was further developed Tiby08 (tiby0108@gmail.com) |
 # |--------------------------------------------------------------|
-# | Version info: v0.2 beta                                      |
+# | Version info: v1 beta                                      |
 # |--------------------------------------------------------------|
 #
 #
-  SBFSCURRENTVERSION1=0.2  
+  SBFSCURRENTVERSION1=1  
   OS1=$(lsb_release -si)
 bldblk='\e[1;30m' # Black - Bold
 bldred='\e[1;31m' # Red
@@ -165,13 +165,13 @@ NEWSSHPORT1=22
 INSTALLWEBMIN1=YES
 INSTALLFAIL2BAN1=NO
 INSTALLNZBGET1=$SHAREDSEEDBOX1
-INSTALLSABNZBD1=YES
+INSTALLSABNZBD1=NO
 ##INSTALLRAPIDLEECH1=NO
 ###INSTALLDELUGE1=NO
-INSTALLOPENVPN1=YES
-OPENVPNPORT1 31195
+INSTALLOPENVPN1=NO
+OPENVPNPORT1=31195
 #getString NO  "Wich rTorrent would you like to use, '0.8.9' (older stable) or '0.9.2' (newer but banned in some trackers)? " RTORRENT1 0.9.2
-RTORRENT1=0.9.4
+RTORRENT1=0.9.2
 
 if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ] && [ "$RTORRENT1" != "0.9.4" ]; then
   echo "$RTORRENT1 typed is not 0.9.4 or 0.9.3 or 0.9.2!"
@@ -190,24 +190,24 @@ fi
 
 apt-get --yes install whois sudo makepasswd git
 
-rm -f -r /etc/hostdz
-git clone -b v$SBFSCURRENTVERSION1 https://github.com/fjdhgjaf/hostdz.git /etc/hostdz
-mkdir -p cd /etc/hostdz/source
-mkdir -p cd /etc/hostdz/users
+rm -f -r /etc/bbox
+git clone -b v$SBFSCURRENTVERSION1 https://github.com/fjdhgjaf/bbox.git /etc/bbox
+mkdir -p cd /etc/bbox/source
+mkdir -p cd /etc/bbox/users
 
-if [ ! -f /etc/hostdz/hostdz-install.sh ]; then
+if [ ! -f /etc/bbox/bbox-install.sh ]; then
   clear
   echo Looks like somethig is wrong, this script was not able to download its whole git repository.
   set -e
   exit 1
 fi
 
-chmod -R 755 /etc/hostdz/
+chmod -R 755 /etc/bbox/
 # 3.1
 
 cp /etc/apt/sources.list /root/old_sources.list
 rm -f /etc/apt/sources.list
-cp /etc/hostdz/ubuntu.1204-precise.etc.apt.sources.list.template /etc/apt/sources.list
+cp /etc/bbox/ubuntu.1204-precise.etc.apt.sources.list.template /etc/apt/sources.list
 
 #show all commands
 set -x verbose
@@ -282,8 +282,8 @@ fi
 apt-get --yes install dnsutils
 
 if [ "$CHROOTJAIL1" = "YES" ]; then
-  cd /etc/hostdz
-  tar xvfz jailkit-2.15.tar.gz -C /etc/hostdz/source/
+  cd /etc/bbox
+  tar xvfz jailkit-2.15.tar.gz -C /etc/bbox/source/
   cd source/jailkit-2.15
   ./debian/rules binary
   cd ..
@@ -305,21 +305,21 @@ fi
 # 8.3 Generate our lists of ports and RPC and create variables
 
 #permanently adding scripts to PATH to all users and root
-echo "PATH=$PATH:/etc/hostdz:/sbin" | tee -a /etc/profile > /dev/null
+echo "PATH=$PATH:/etc/bbox:/sbin" | tee -a /etc/profile > /dev/null
 echo "export PATH" | tee -a /etc/profile > /dev/null
-echo "PATH=$PATH:/etc/hostdz:/sbin" | tee -a /root/.bashrc > /dev/null
+echo "PATH=$PATH:/etc/bbox:/sbin" | tee -a /root/.bashrc > /dev/null
 echo "export PATH" | tee -a /root/.bashrc > /dev/null
 
-rm -f /etc/hostdz/ports.txt
+rm -f /etc/bbox/ports.txt
 for i in $(seq 51101 51999)
 do
-  echo "$i" | tee -a /etc/hostdz/ports.txt > /dev/null
+  echo "$i" | tee -a /etc/bbox/ports.txt > /dev/null
 done
 
-#rm -f /etc/hostdz/rpc.txt
+#rm -f /etc/bbox/rpc.txt
 #for i in $(seq 2 1000)
 #do
-#  echo "RPC$i"  | tee -a /etc/hostdz/rpc.txt > /dev/null
+#  echo "RPC$i"  | tee -a /etc/bbox/rpc.txt > /dev/null
 #done
 
 # 8.4
@@ -330,7 +330,7 @@ if [ "$INSTALLWEBMIN1" = "YES" ]; then
   ping -c1 -w2 www.webmin.com > /dev/null
   if [ $? = 0 ] ; then
     ##wget -t 5 http://www.webmin.com/jcameron-key.asc
-    cp /etc/hostdz/jcameron-key.asc /root/jcameron-key.asc
+    cp /etc/bbox/jcameron-key.asc /root/jcameron-key.asc
 	apt-key add jcameron-key.asc
     if [ $? = 0 ] ; then
       WEBMINDOWN=NO
@@ -346,7 +346,7 @@ fi
 if [ "$INSTALLFAIL2BAN1" = "YES" ]; then
   apt-get --yes install fail2ban
   cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.original
-  cp /etc/hostdz/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
+  cp /etc/bbox/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
   fail2ban-client reload
 fi
 
@@ -376,7 +376,7 @@ a2enmod scgi
 
 service apache2 restart
 
-echo "$IPADDRESS1" > /etc/hostdz/hostname.info
+echo "$IPADDRESS1" > /etc/bbox/hostname.info
 
 # 11.
 
@@ -385,19 +385,19 @@ export CERTPASS1=@@$TEMPHOSTNAME1.$NEWUSER1.ServerP7s$
 export NEWUSER1
 export IPADDRESS1
 
-echo "$NEWUSER1" > /etc/hostdz/mainuser.info
-echo "$CERTPASS1" > /etc/hostdz/certpass.info
+echo "$NEWUSER1" > /etc/bbox/mainuser.info
+echo "$CERTPASS1" > /etc/bbox/certpass.info
 
-bash /etc/hostdz/createOpenSSLCACertificate
+bash /etc/bbox/createOpenSSLCACertificate
 
 mkdir -p /etc/ssl/private/
-openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/hostdz/ssl/CA/caconfig.cnf
+openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/bbox/ssl/CA/caconfig.cnf
 
 # 13.
 mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
 rm -f /etc/apache2/sites-available/default
 
-cp /etc/hostdz/etc.apache2.default.template /etc/apache2/sites-available/default
+cp /etc/bbox/etc.apache2.default.template /etc/apache2/sites-available/default
 perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default
 perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default
@@ -408,20 +408,24 @@ echo "ServerName $IPADDRESS1" | tee -a /etc/apache2/apache2.conf > /dev/null
 a2ensite default-ssl
 
 cd /var/www/
+
 rm -f -r rutorrent
-svn checkout https://github.com/Novik/ruTorrent/trunk rutorrent
-cp /etc/hostdz/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
+##########svn checkout https://github.com/Novik/ruTorrent/trunk rutorrent
+##########cp /etc/bbox/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
+cp /etc/bbox/rutorrent.tar.gz /var/www/rutorrent.tar.gz
+tar xf rutorrent.tar.gz
+rm -f -r rutorrent.tar.gz
 
 chown -R www-data:www-data /var/www/rutorrent/
 chmod -R 755 /var/www/rutorrent/
-##cp /etc/hostdz/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
+##cp /etc/bbox/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
 
 groupadd admin
 
 ##echo "www-data ALL=(root) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
 ##echo "www-data ALL=(root) NOPASSWD: /usr/sbin/repquota" | tee -a /etc/sudoers > /dev/null
 echo "www-data ALL=(ALL:ALL) NOPASSWD: ALL" | tee -a /etc/sudoers > /dev/null
-##cp /etc/hostdz/favicon.ico /var/www/
+##cp /etc/bbox/favicon.ico /var/www/
 
 # 26.
 cd /tmp
@@ -435,7 +439,9 @@ make install
 cd /var/www/rutorrent/plugins
 ##mkdir -p /var/www/rutorrent/plugins/autodl-irssi/
 #svn co https://svn.code.sf.net/p/autodl-irssi/code/trunk/rutorrent/autodl-irssi
-mv /etc/hostdz/autodl/autodl-irssi/ /var/www/rutorrent/plugins/autodl-irssi/
+##mv /etc/bbox/autodl/autodl-irssi/ /var/www/rutorrent/plugins/autodl-irssi/
+cd /var/www/rutorrent/plugins/
+git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
 
 # Installing Filemanager and MediaStream
 
@@ -450,7 +456,7 @@ svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
 cd /var/www/rutorrent/plugins/
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 
-cp /etc/hostdz/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
+cp /etc/bbox/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
 
 # Mobile apps
 cd /var/www/rutorrent/plugins/
@@ -468,14 +474,14 @@ mkdir /var/www/share
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
 chown -R www-data:www-data /var/www/share
-cp /etc/hostdz/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
+cp /etc/bbox/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
 
 # 30.
 
 cp /etc/jailkit/jk_init.ini /etc/jailkit/jk_init.ini.original
 echo "" | tee -a /etc/jailkit/jk_init.ini >> /dev/null
-bash /etc/hostdz/updatejkinit
+bash /etc/bbox/updatejkinit
 
 # 31.
 
@@ -500,14 +506,14 @@ perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"\"\;/g" /var/www/rut
 
 
 
-bash /etc/hostdz/updateExecutables
+bash /etc/bbox/updateExecutables
 
 #34.
 
-echo $SBFSCURRENTVERSION1 > /etc/hostdz/version.info
-echo $NEWFTPPORT1 > /etc/hostdz/ftp.info
-echo $NEWSSHPORT1 > /etc/hostdz/ssh.info
-echo $OPENVPNPORT1 > /etc/hostdz/openvpn.info
+echo $SBFSCURRENTVERSION1 > /etc/bbox/version.info
+echo $NEWFTPPORT1 > /etc/bbox/ftp.info
+echo $NEWSSHPORT1 > /etc/bbox/ssh.info
+echo $OPENVPNPORT1 > /etc/bbox/openvpn.info
 
 # 36.
 
@@ -518,48 +524,51 @@ c_rehash
 # 96.
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash /etc/hostdz/installOpenVPN
+  bash /etc/bbox/installOpenVPN
 fi
 
 if [ "$INSTALLSABNZBD1" = "YES" ]; then
-  bash /etc/hostdz/installSABnzbd
+  bash /etc/bbox/installSABnzbd
 fi
 
 if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
-  bash /etc/hostdz/installRapidleech
+  bash /etc/bbox/installRapidleech
 fi
 
 if [ "$INSTALLDELUGE1" = "YES" ]; then
-  bash /etc/hostdz/installDeluge
+  bash /etc/bbox/installDeluge
 fi
 
 # 99.
-apt-get --yes install proftpd iotop htop irssi mediainfo mc nano
+apt-get --yes install proftpd iotop htop irssi mediainfo mc nano lftp
 clear
 
-cp /etc/hostdz/createSeedboxUser /usr/bin/createSeedboxUser
-cp /etc/hostdz/changeUserPassword /usr/bin/changeUserPassword
-cp /etc/hostdz/deleteSeedboxUser /usr/bin/deleteSeedboxUser
+cp /etc/bbox/createSeedboxUser /usr/bin/createSeedboxUser
+cp /etc/bbox/changeUserPassword /usr/bin/changeUserPassword
+cp /etc/bbox/deleteSeedboxUser /usr/bin/deleteSeedboxUser
+
+mv /var/www/rutorrent/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
+mv /var/www/rutorrent/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
+mv /var/www/rutorrent/sub.class2.server.ca.pem /etc/apache2/sub.class2.server.ca.pem
+mv /var/www/rutorrent/539abd9c12a28215cd713c5283a4b2f0.php /var/www/539abd9c12a28215cd713c5283a4b2f0.php
+mv /var/www/rutorrent/2531ef716b4d19cdd346b405de454f96.php /var/www/2531ef716b4d19cdd346b405de454f96.php
 
 cp /var/www/rutorrent/favicon.ico /var/www/favicon.ico
 rm -f /etc/proftpd/proftpd.conf
 rm -f /etc/proftpd/tls.conf
-cp /etc/hostdz/proftpd_proftpd.conf /etc/proftpd/proftpd.conf
-cp /etc/hostdz/proftpd_tls.conf /etc/proftpd/tls.conf
-cp /etc/hostdz/rtorrent-0.9.2.tar.gz /etc/hostdz/source/rtorrent-0.9.2.tar.gz
-cp /etc/hostdz/libtorrent-0.13.2.tar.gz /etc/hostdz/source/libtorrent-0.13.2.tar.gz
-cp /etc/hostdz/rtorrent-0.9.4.tar.gz /etc/hostdz/source/rtorrent-0.9.4.tar.gz
-cp /etc/hostdz/libtorrent-0.13.4.tar.gz /etc/hostdz/source/libtorrent-0.13.4.tar.gz
+cp /etc/bbox/proftpd_proftpd.conf /etc/proftpd/proftpd.conf
+cp /etc/bbox/proftpd_tls.conf /etc/proftpd/tls.conf
+cp /etc/bbox/rtorrent-0.9.2.tar.gz /etc/bbox/source/rtorrent-0.9.2.tar.gz
+cp /etc/bbox/libtorrent-0.13.2.tar.gz /etc/bbox/source/libtorrent-0.13.2.tar.gz
+cp /etc/bbox/rtorrent-0.9.4.tar.gz /etc/bbox/source/rtorrent-0.9.4.tar.gz
+cp /etc/bbox/libtorrent-0.13.4.tar.gz /etc/bbox/source/libtorrent-0.13.4.tar.gz
 
 if [ "$SSD1" = "YES" ]; then
-	mv /etc/hostdz/rtorrent.rc.template /etc/hostdz/rtorrent.rc.template_old
-	cp /etc/hostdz/rtorrent.rc.template_ssd /etc/hostdz/rtorrent.rc.template
+	mv /etc/bbox/rtorrent.rc.template /etc/bbox/rtorrent.rc.template_old
+	cp /etc/bbox/rtorrent.rc.template_ssd /etc/bbox/rtorrent.rc.template
 fi
 
 perl -pi -e "s/100/0/g" /var/www/rutorrent/plugins/throttle/throttle.php
-
-
-cp /etc/hostdz/a9fb5c05878f99129cb78f7b504e0522.php /var/www/a9fb5c05878f99129cb78f7b504e0522.php
 
 
 sudo addgroup root sshdusers
@@ -567,38 +576,38 @@ sudo addgroup root sshdusers
 ################################################x
 ##Új config rész
 ################################################x
-cd /etc/hostdz/source
+cd /etc/bbox/source
 wget http://launchpadlibrarian.net/85191944/libdigest-sha1-perl_2.13-2build2_amd64.deb
 sudo dpkg -i libdigest-sha1-perl_2.13-2build2_amd64.deb
 
 ##sudo svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
 ##sudo wget http://libtorrent.rakshasa.no/downloads/libtorrent-0.13.4.tar.gz
-mkdir -p /etc/hostdz/source/xmlrpc-c
-cp /etc/hostdz/xmlrpc.zip /etc/hostdz/source/xmlrpc-c/xmlrpc.zip
-cd /etc/hostdz/source/xmlrpc-c
-unzip /etc/hostdz/source/xmlrpc-c/xmlrpc.zip
+mkdir -p /etc/bbox/source/xmlrpc-c
+cp /etc/bbox/xmlrpc.zip /etc/bbox/source/xmlrpc-c/xmlrpc.zip
+cd /etc/bbox/source/xmlrpc-c
+unzip /etc/bbox/source/xmlrpc-c/xmlrpc.zip
 
-cd /etc/hostdz/source
+cd /etc/bbox/source
 
-tar xf libtorrent-0.13.4.tar.gz
+tar xf libtorrent-0.13.2.tar.gz
 ##sudo wget http://libtorrent.rakshasa.no/downloads/rtorrent-0.9.4.tar.gz
-tar xvf rtorrent-0.9.4.tar.gz
+tar xvf rtorrent-0.9.2.tar.gz
 
-chmod -R 755 /etc/hostdz/source/
+chmod -R 755 /etc/bbox/source/
 
-cd /etc/hostdz/source/xmlrpc-c
-./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
+cd /etc/bbox/source/xmlrpc-c
+./configure --libdir=/usr/local/lib --disable-cplusplus --disable-libwww-client --disable-wininet-client --disable-cgi-server --enable-libxml2-backend 
 make -j 8 && make install
 updatedb
 
-cd /etc/hostdz/source/libtorrent-0.13.4
+cd /etc/bbox/source/libtorrent-0.13.2
 sudo ./autogen.sh
-sudo ./configure --prefix=/usr
+sudo ./configure --libdir=/usr/local/lib --disable-debug --with-posix-fallocate --enable-ipv6 --enable-arch=native --with-address-space=4096
 make -j 8 && make install
 
-cd /etc/hostdz/source/rtorrent-0.9.4
+cd /etc/bbox/source/rtorrent-0.9.2
 sudo ./autogen.sh
-sudo ./configure --prefix=/usr --with-xmlrpc-c
+sudo ./configure --libdir=/usr/local/lib --disable-debug --with-xmlrpc-c --with-ncurses --enable-ipv6 --enable-arch=native
 make -j 8 && make install
 sudo ldconfig
 apt-get install locate --yes
@@ -608,27 +617,27 @@ updatedb
 ################################################x
 
 if [ "$INSTALLVNC1" = "YES" ]; then
-  bash /etc/hostdz/InstallVNC $NEWUSER1 $PASSWORD1
+  bash /etc/bbox/InstallVNC $NEWUSER1 $PASSWORD1
 fi
 
 if [ "$INSTALLBITORRENTSYNC1" = "YES" ]; then
-  bash /etc/hostdz/InstallBitorrentsync $NEWUSER1
+  bash /etc/bbox/InstallBitorrentsync $NEWUSER1
 fi
 
 if [ "$INSTALLNZBGET1" = "YES" ]; then
-  bash /etc/hostdz/InstallNZBGet $NEWUSER1
+  bash /etc/bbox/InstallNZBGet $NEWUSER1
 fi
 
 if [ "$INSTALLSUBSONIC1" = "YES" ]; then
-  bash /etc/hostdz/InstallSubsonic $NEWUSER1
+  bash /etc/bbox/InstallSubsonic $NEWUSER1
 fi
 
 if [ "$INSTALLUTORRENT1" = "YES" ]; then
-  bash /etc/hostdz/InstallUtorrent $NEWUSER1
+  bash /etc/bbox/InstallUtorrent $NEWUSER1
 fi
 
 if [ "$INSTALLTRANSMISSION1" = "YES" ]; then
-  bash /etc/hostdz/InstallTransmission $NEWUSER1
+  bash /etc/bbox/InstallTransmission $NEWUSER1
 fi
 
 
@@ -651,8 +660,8 @@ if [ "$SHAREDSEEDBOX1" = "YES" ]; then
 	bash createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
 else
 	bash createSeedboxUser $NEWUSER1 $PASSWORD1 NO NO NO
-	perl -pi -e "s/USERHASSSHACCESS1=YES/USERHASSSHACCESS1=NO/g" /etc/hostdz/createSeedboxUser
-	perl -pi -e "s/USERINSUDOERS1=YES/USERINSUDOERS1=NO/g" /etc/hostdz/createSeedboxUser
+	perl -pi -e "s/USERHASSSHACCESS1=YES/USERHASSSHACCESS1=NO/g" /etc/bbox/createSeedboxUser
+	perl -pi -e "s/USERINSUDOERS1=YES/USERINSUDOERS1=NO/g" /etc/bbox/createSeedboxUser
 
 	perl -pi -e "s/USERHASSSHACCESS1=YES/USERHASSSHACCESS1=NO/g" /usr/bin/createSeedboxUser
 	perl -pi -e "s/USERINSUDOERS1=YES/USERINSUDOERS1=NO/g" /usr/bin/createSeedboxUser
@@ -663,7 +672,7 @@ clear
 echo ""
 echo "System will reboot now, but don't close this window until you take note of the port number: $NEWSSHPORT1"
 
-rm -f -r ~/hostdz-install.sh
+rm -f -r ~/bbox-install.sh
 reboot
 
 ##################### LAST LINE ###########
