@@ -37,6 +37,15 @@ function getString
 
   while [ ! $NEWVAR1 = $NEWVAR2 ] || [ -z "$NEWVAR1" ];
   do
+    clear
+    echo -e "${txtylw}#${txtrst}"
+	echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
+	echo -e "${txtylw}# | The script thank you for Notos (notos.korsan@gmail.com)      |${txtrst}"
+	echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
+	echo -e "${txtylw}# | The script was further developed Tiby08 (tiby0108@gmail.com) |${txtrst}"
+	echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
+    echo -e "${txtylw}#${txtrst}"
+    echo
 
     if [ "$ISPASSWORD" == "YES" ]; then
       echo -e -n "${bldgrn}$LABEL${bldpur}"
