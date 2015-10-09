@@ -707,7 +707,6 @@ echo "--------------------------------------------------------------------------
 echo "VNC: $IPADDRESS1:5901" | sudo tee -a /etc/bbox/users/$NEWUSER1.info
 fi
 
-set +x verbose
 clear
 echo ""
 echo "<<<< BestBox seedbox install v$SBFSCURRENTVERSION >>>>"
