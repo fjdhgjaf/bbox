@@ -206,8 +206,8 @@ pieces.preload.type.set = 0
 ###pieces.preload.type.set szerk 1-ről 0
 pieces.preload.min_size.set = 262144
 pieces.preload.min_rate.set = 5120
-network.send_buffer.size.set = 4M
-network.receive_buffer.size.set = 4M
+network.send_buffer.size.set = 0
+network.receive_buffer.size.set = 0
 
 pieces.sync.always_safe.set = no
 pieces.sync.timeout.set = 600
@@ -251,13 +251,13 @@ use_udp_trackers = yes
 # key_layout = dvorak
 # keys.layout.set = dvorak
 
-#log.open_file = "rtorrent", ~/log/rtorrent.log
-#log.open_file = "tracker", ~/log/tracker.log
-#log.open_file = "storage", ~/log/storage.log
+log.open_file = "rtorrent", ~/log/rtorrent.log
+log.open_file = "tracker", ~/log/tracker.log
+log.open_file = "storage", ~/log/storage.log
 
 #log.add_output = "info", "rtorrent"
-#log.add_output = "critical", "rtorrent"
-#log.add_output = "error", "rtorrent"
+log.add_output = "critical", "rtorrent"
+log.add_output = "error", "rtorrent"
 #log.add_output = "warn", "rtorrent"
 #log.add_output = "notice", "rtorrent"
 #log.add_output = "debug", "rtorrent"
