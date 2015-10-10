@@ -97,7 +97,7 @@ enabled = user-defined
 [_task]
 enabled = yes
 [throttle]
-enabled = user-defined
+enabled = yes
 [titlebar]
 enabled = user-defined
 [unpack]
