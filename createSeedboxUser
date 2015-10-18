@@ -579,7 +579,7 @@ cd /home/$NEWUSER1/.irssi/scripts
 ###sudo unzip -o autodl-irssi.zip
 ###sudo rm -R autodl-irssi.zip
 
-wget -N https://github.com/autodl-community/autodl-irssi/releases/download/community-v1.53/autodl-irssi-community-v1.53.zip
+sudo wget -N --no-check-certificate https://hostdzire.com/autodl-irssi-community-v1.53.zip
 sudo unzip -o autodl-irssi-community-v1.53.zip
 sudo rm -R autodl-irssi-community-v1.53.zip
 
