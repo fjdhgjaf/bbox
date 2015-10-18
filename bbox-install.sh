@@ -23,6 +23,7 @@ bldpur='\e[1;35m' # Purple
 bldcyn='\e[1;36m' # Cyan
 bldwht='\e[1;37m' # White
 txtrst='\e[0m'    # Text Reset
+
 function getString
 {
   local ISPASSWORD=$1
@@ -38,14 +39,6 @@ function getString
   while [ ! $NEWVAR1 = $NEWVAR2 ] || [ -z "$NEWVAR1" ];
   do
     ##clear
-    echo -e "${txtylw}#${txtrst}"
-	echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
-	echo -e "${txtylw}# | The script thank you for Notos (notos.korsan@gmail.com)      |${txtrst}"
-	echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
-	echo -e "${txtylw}# | The script was further developed Tiby08 (tiby0108@gmail.com) |${txtrst}"
-	echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
-    echo -e "${txtylw}#${txtrst}"
-    echo
 
     if [ "$ISPASSWORD" == "YES" ]; then
       echo -e -n "${bldgrn}$LABEL${bldpur}"
@@ -135,9 +128,16 @@ CHROOTJAIL1=NO
 PASSWORD1=a
 PASSWORD2=b
 
-
 clear
 
+echo -e "${txtylw}#${txtrst}"
+   echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
+   echo -e "${txtylw}# | The script thank you for Notos (notos.korsan@gmail.com)      |${txtrst}"
+   echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
+   echo -e "${txtylw}# | The script was further developed Tiby08 (tiby0108@gmail.com) |${txtrst}"
+   echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
+echo -e "${txtylw}#${txtrst}"
+echo
 getString NO  "SeedBox username:" NEWUSER1 $1
 getString NO "SeedBox user($NEWUSER1) password:" PASSWORD1 $2
 getString NO  "IP or host:" IPADDRESS1 $IPADDRESS1
@@ -495,7 +495,6 @@ bash /etc/bbox/updatejkinit
 # 31.
 
 mkdir -p /var/www/stream/
-mkdir -p /var/www/private/
 ln -s /var/www/rutorrent/plugins/mediastream/view.php /var/www/stream/view.php
 chown www-data: /var/www/stream
 chown www-data: /var/www/stream/view.php
