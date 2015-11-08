@@ -80,7 +80,7 @@ pieces.memory.max.set = 4G
  
 # max number of files to keep open simultaneously 
 # max_open_files = 192 
-network.max_open_files.set = 40
+network.max_open_files.set = 192
  
 # max_open_http = 32 
 network.http.max_open.set = 32
@@ -124,7 +124,7 @@ schedule = watch_directory,5,5,load_start=/home/<username>/downloads/watch/*.tor
 schedule = untied_directory,5,5,stop_untied= 
  
 # close torrents when diskspace is low. */ 
-schedule = low_diskspace,5,60,close_low_diskspace=1G 
+schedule = low_diskspace,5,60,close_low_diskspace=5G 
  
 # stop torrents when reaching upload ratio in percent,
 # when also reaching total upload in bytes, or when
@@ -277,5 +277,8 @@ trackers.numwant.set = 400
 # Disable SSL verification
 network.http.ssl_verify_peer.set=0
 system.file_allocate.set = yes
+network.max_open_sockets.set = 65535
+throttle.max_uploads.global.set = 0
+throttle.max_downloads.global.set = 0
 
 execute = {sh,-c,/usr/bin/php /var/www/rutorrent/php/initplugins.php <username> &}
