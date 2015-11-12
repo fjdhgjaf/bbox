@@ -325,11 +325,11 @@ do
   echo "$i" | tee -a /etc/bbox/ports.txt > /dev/null
 done
 
-#rm -f /etc/bbox/rpc.txt
-#for i in $(seq 2 1000)
-#do
-#  echo "RPC$i"  | tee -a /etc/bbox/rpc.txt > /dev/null
-#done
+rm -f /etc/bbox/rpc.txt
+for i in $(seq 2 1000)
+do
+  echo "RPC$i"  | tee -a /etc/bbox/rpc.txt > /dev/null
+done
 
 # 8.4
 
