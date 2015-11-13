@@ -6,6 +6,6 @@
 
 USERNAME=$1
 
-sudo perl -pi -e "s/network.max_open_files.set = 10/network.max_open_files.set = 192/g" /home/$USERNAME/rtorrent.rc
-sudo perl -pi -e "s/network.http.max_open.set = 10/network.http.max_open.set = 32/g" /home/$USERNAME/rtorrent.rc
-sudo perl -pi -e "s/close_low_diskspace=100M/close_low_diskspace=5G/g" /home/$USERNAME/rtorrent.rc
+sudo perl -pi -e "s/network.max_open_files.set = 10/network.max_open_files.set = 192/g" /home/$USERNAME/.rtorrent.rc
+sudo perl -pi -e "s/network.http.max_open.set = 10/network.http.max_open.set = 32/g" /home/$USERNAME/.rtorrent.rc
+sudo perl -pi -e "s/close_low_diskspace=100M/close_low_diskspace=5G/g" /home/$USERNAME/.rtorrent.rc
