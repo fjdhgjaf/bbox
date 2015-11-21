@@ -5,10 +5,9 @@
 # | The script was further developed Tiby08 (tiby0108@gmail.com) |
 # |--------------------------------------------------------------|
 #
-
  
 # Downloads Settings 
-max_uploads = 250
+max_uploads = 500 
 
 # maximum and minimum number of peers to connect to per torrent
 min_peers = 250
@@ -16,21 +15,14 @@ max_peers = 500
  
 # same as above but for seeding completed torrents (-1 = same as downloading) 
 min_peers_seed = -1
-max_peers_seed = -1
+max_peers_seed = -1 
 trackers.numwant.set = 400
 check_hash = no 
 
-# directory.default.set = /home/<username>/downloads
 directory = /home/<username>/downloads/manual
-
-# session.path.set = /home/<username>/downloads/.session
 session = /home/<username>/downloads/.session
 
-# network.port_range.set = 99888-99888 
 port_range = 99888-99888 
- 
-# start opening ports at a random position within the port range 
-# network.port_random.set = yes 
 port_random = yes
 
 # global upload and download rate in KiB. "0" for unlimited
@@ -38,7 +30,7 @@ upload_rate = 0
 download_rate = 0 
  
 # max mapped memory 
-pieces.memory.max.set = 12G
+pieces.memory.max.set = 16G 
 network.max_open_files.set = 65535
 network.http.max_open.set = 32
 
@@ -47,30 +39,23 @@ dht_port = 6881
 peer_exchange = no 
 use_udp_trackers = yes
 
-#schedule = watch_directory,5,5,load_start=/home/<username>/downloads/manual/watch/*.torrent
 schedule = watch_directory,5,5,"load_start=/home/<username>/downloads/manual/watch/*.torrent,d.delete_tied="
 schedule = low_diskspace,5,60,close_low_diskspace=5G 
 
 scgi_port = 127.0.0.1:5995 
  
 #encryption = allow_incoming, try_outgoing, enable_retry
-encryption = allow_incoming,try_outgoing,enable_retry,prefer_plaintext
+encryption = allow_incoming,try_outgoing,enable_retry
 
-# hash read-ahead controls how many MB to request the kernel to read ahead ahead 
-# if the value is too low the disk may not be fully utilized, 
 # while if too high the kernel might not be able to keep the read pages 
 # in memory thus end up trashing. 
 # hash_read_ahead = 8
-# system.hash.read_ahead.set = 8 
  
 # interval between attempts to check the hash, in milliseconds 
 # hash_interval = 50 
-# system.hash.interval.set = 50 
  
-# number of attempts to check the hash while using the mincore status, before forcing 
 # overworked systems might need lower values to get a decent hash checking rate 
 # hash_max_tries = 3 
-# system.hash.max_tries.set = 3 
 
 system.file.max_size.set = 137438953472
 
@@ -96,17 +81,8 @@ log.open_file = "rtorrent", ~/log/rtorrent.log
 log.open_file = "tracker", ~/log/tracker.log
 log.open_file = "storage", ~/log/storage.log
 
-#log.add_output = "info", "rtorrent"
 log.add_output = "critical", "rtorrent"
 log.add_output = "error", "rtorrent"
-#log.add_output = "warn", "rtorrent"
-#log.add_output = "notice", "rtorrent"
-#log.add_output = "debug", "rtorrent"
-
-#log.add_output = "dht_debug", "tracker"
-#log.add_output = "tracker_debug", "tracker"
-
-#log.add_output = "storage_debug", "storage"
 
 system.umask.set = 022
 encoding_list = UTF-8
@@ -118,7 +94,5 @@ network.tos.set = throughput
 network.http.ssl_verify_peer.set=0
 system.file_allocate.set = yes
 network.max_open_sockets.set = 65535
-throttle.max_uploads.global.set = 0
-throttle.max_downloads.global.set = 0
 
 execute = {sh,-c,/usr/bin/php /var/www/rutorrent/php/initplugins.php <username> &}
