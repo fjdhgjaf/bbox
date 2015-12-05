@@ -146,8 +146,8 @@ else
 fi
 
 #####Csere NO-ra
-USERHASSSHACCESS1=YES
-USERINSUDOERS1=YES
+USERHASSSHACCESS1=NO
+USERINSUDOERS1=NO
 #if [ $3 ]
 #then
 #  if [ "$3" == "YES" ] || [ "$3" == "NO" ]; then
