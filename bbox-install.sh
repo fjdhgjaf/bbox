@@ -178,7 +178,7 @@ INSTALLSABNZBD1=NO
 ##INSTALLRAPIDLEECH1=NO
 ###INSTALLDELUGE1=NO
 INSTALLOPENVPN1=NO
-OPENVPNPORT1=31195
+#OPENVPNPORT1=31195
 #getString NO  "Wich rTorrent would you like to use, '0.8.9' (older stable) or '0.9.2' (newer but banned in some trackers)? " RTORRENT1 0.9.2
 RTORRENT1=0.9.2
 
@@ -521,7 +521,7 @@ bash /etc/bbox/updateExecutables
 echo $SBFSCURRENTVERSION1 > /etc/bbox/version.info
 echo $NEWFTPPORT1 > /etc/bbox/ftp.info
 echo $NEWSSHPORT1 > /etc/bbox/ssh.info
-echo $OPENVPNPORT1 > /etc/bbox/openvpn.info
+##echo $OPENVPNPORT1 > /etc/bbox/openvpn.info
 
 # 36.
 
