@@ -9,6 +9,7 @@ helyi_mappa="/var/www/rutorrent/share/users/<fnev>/"
 ###/home/<fnev>/downloads/manual/
 ###/home/<fnev>/downloads/.session/
 
+sudo apt-get install lftp --yes
 trap "rm -f /tmp/<fnev>.lock" SIGINT SIGTERM
 
 if [ -e /tmp/<fnev>.lock ]
