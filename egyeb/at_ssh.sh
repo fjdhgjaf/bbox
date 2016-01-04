@@ -1,32 +1,32 @@
 #!/bin/bash
 
-fnev="syssy"
-jelszo="qN0wwxzx3jRY5zNOK"
-host="best7.bestbox.be"
-tavoli_mappa="/syssy/"
-helyi_mappa="/var/www/rutorrent/share/users/syssy/"
-###/var/www/rutorrent/share/users/syssy/
-###/home/syssy/downloads/manual/
-###/home/syssy/downloads/.session/
+fnev="<fnev>"
+jelszo="<jelszo>"
+host="<host>.bestbox.be"
+tavoli_mappa="/<fnev>/"
+helyi_mappa="/var/www/rutorrent/share/users/<fnev>/"
+###/var/www/rutorrent/share/users/<fnev>/
+###/home/<fnev>/downloads/manual/
+###/home/<fnev>/downloads/.session/
 
-trap "rm -f /tmp/syssy.lock" SIGINT SIGTERM
+trap "rm -f /tmp/<fnev>.lock" SIGINT SIGTERM
 
-if [ -e /tmp/syssy.lock ]
+if [ -e /tmp/<fnev>.lock ]
 then
-  echo "Synctorrent(syssy) is running already."
+  echo "Synctorrent(<fnev>) is running already."
   exit 1
 else
 
-  rm -f /tmp/syssy.lock
+  rm -f /tmp/<fnev>.lock
 
 lftp -p 22 -u "$fnev","$jelszo" sftp://"$host" << EOF
 	set sftp:auto-confirm yes
 	set mirror:use-pget-n 5
-	mirror -R -c -P5  $helyi_mappa $tavoli_mappa
+	mirror -R -c -P5  "$helyi_mappa" "$tavoli_mappa"
 	quit
 EOF
 
-  rm -f /tmp/syssy.lock
+  rm -f /tmp/<fnev>.lock
   exit 0
 
 fi
