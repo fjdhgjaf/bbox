@@ -548,12 +548,13 @@ if [ "$INSTALLDELUGE1" = "YES" ]; then
 fi
 
 # 99.
-apt-get --yes install proftpd iotop htop irssi mediainfo mc nano lftp
+apt-get --yes install proftpd iotop htop irssi mediainfo mc nano lftp vnstat vnstati
 clear
 
 cp /etc/bbox/createSeedboxUser /usr/bin/createSeedboxUser
 cp /etc/bbox/changeUserPassword /usr/bin/changeUserPassword
 cp /etc/bbox/deleteSeedboxUser /usr/bin/deleteSeedboxUser
+cp /etc/bbox/ChangeDNS /usr/bin/ChangeDNS
 
 mv /var/www/rutorrent/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
 mv /var/www/rutorrent/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
