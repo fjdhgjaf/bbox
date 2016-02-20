@@ -687,10 +687,12 @@ echo -e "${bldgrn}# |-----------------------------------------------------------
 echo -e "${bldgrn}#"
 echo ""
 echo ""
-echo "System will reboot now, but don't close this window until you take note of the port number: $NEWSSHPORT1"
+echo -e "${txtrst}System will reboot now, but don't close this window until you take note of the port number: $NEWSSHPORT1"
 
 perl -pi -e "s/memory_limit = 128M/memory_limit = 12048M/g" /etc/php5/apache2/php.ini
 service apache2 restart
+
+bash /etc/bbox/ChangeDNS $IPADDRESS1
 
 rm -f -r ~/bbox-install.sh
 reboot
