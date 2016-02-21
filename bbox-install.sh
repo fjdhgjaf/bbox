@@ -694,6 +694,7 @@ perl -pi -e "s/memory_limit = 128M/memory_limit = 12048M/g" /etc/php5/apache2/ph
 service apache2 restart
 
 bash /etc/bbox/ChangeDNS $IPADDRESS1
+bash /etc/bbox/InstallCpan
 
 rm -f -r ~/bbox-install.sh
 reboot
