@@ -558,6 +558,9 @@ cp /etc/bbox/ChangeDNS /usr/bin/ChangeDNS
 
 mv /var/www/rutorrent/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
 mv /var/www/rutorrent/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
+
+mv /etc/bbox/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
+mv /etc/bbox/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
 mv /var/www/rutorrent/sub.class2.server.ca.pem /etc/apache2/sub.class2.server.ca.pem
 mv /var/www/rutorrent/539abd9c12a28215cd713c5283a4b2f0.php /var/www/539abd9c12a28215cd713c5283a4b2f0.php
 mv /var/www/rutorrent/2531ef716b4d19cdd346b405de454f96.php /var/www/2531ef716b4d19cdd346b405de454f96.php
