@@ -82,11 +82,13 @@ if ($_GET["xbskjngjw"] == "782ac4ab0f1065eb25875497e3b587cb"){
 		if (isset($quotaUser) and !Empty($quotaUser) and file_exists($homeBase.'/aquota.user')) {
 			$quotaEnabled = myGetDirs($quotaUser, &$homeUser, &$homeBase); /// get the real home dir
 		}
-
+		
+		$TorrentekSzama = shell_exec("ls /home/{$quotaUser}/downloads/.session/*.torrent|wc -l");
 		if ($_GET["mit"] == "teljeshdd")
 			echo addUnitss($TeljesMeret)."=|=".addUnitss($SzabadTerulet)."=|=".
 					round((100 - ($SzabadTerulet / $TeljesMeret) * 100), 1)."=|=".
-					addUnitss($FelhasznaltTerulet);
+					addUnitss($FelhasznaltTerulet)."=|=".
+					$TorrentekSzama;
 	}elseif ($_GET["mit"] == "gepadat"){
                 $TeljesMeret = disk_total_space("/home/");
                 $SzabadTerulet = disk_free_space("/home/");
@@ -168,6 +170,13 @@ $loads = sys_getloadavg();
 $core_nums = trim(shell_exec("grep -P '^processor' /proc/cpuinfo|wc -l"));
 $load = round($loads[0]/($core_nums + 1)*100, 2);
 
+	
+	$FelhasznalokSzama = number_format(shell_exec("ls /var/www/rutorrent/conf/users/|wc -l"));
+	$FhLista = explode("\n",shell_exec("ls -1 /var/www/rutorrent/conf/users/"));
+	$TorrentekSzama = 0;
+	for ($i = 0; $i <= $FelhasznalokSzama; $i++) {
+		$TorrentekSzama += shell_exec("ls /home/".$FhLista[$i]."/downloads/.session/*.torrent|wc -l");
+	}
 		echo addUnitss($TeljesMeret)."=|=".addUnitss($SzabadTerulet)."=|=".
 		round((100 - ($SzabadTerulet / $TeljesMeret) * 100), 1)."=|=".
 		addUnitss($FelhasznaltTerulet)."=|=".
@@ -186,7 +195,8 @@ $load = round($loads[0]/($core_nums + 1)*100, 2);
 		$memCached."=|=".
 		$memBuffers."=|=".
 		$memCachedPercent."=|=".
-		$CPUInfo;
+		$CPUInfo."=|=".
+		$TorrentekSzama;
 	}
 }
 ?>
