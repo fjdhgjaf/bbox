@@ -1,0 +1,27 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# |--------------------------------------------------------------|
+# | The script thank you for Notos (notos.korsan@gmail.com)      |
+# |--------------------------------------------------------------|
+# | The script was further developed Tiby08 (tiby0108@gmail.com) |
+# |--------------------------------------------------------------|
+# | Version info: v0.1 beta                                      |
+# |--------------------------------------------------------------|
+#
+#
+
+
+rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
+echo "Törlés sikeres."
+sleep 2
+echo "Letöltés indul.."
+sleep 1
+cd /var/www/
+wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
+chown -R www-data:www-data /var/www/
+chmod -R 755 /var/www/
+
+echo "Frissítés sikeres!"
