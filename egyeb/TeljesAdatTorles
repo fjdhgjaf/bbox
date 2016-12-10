@@ -24,8 +24,7 @@ Fhnev=$1
 
 
 rm -f -r /var/www/rutorrent/share/users/$Fhnev/ > /dev/null 2>&1 &
-rm -f -r /home/$Fhnev/downloads/ > /dev/null 2>&1 &
-sleep 10
+rm -f -r /home/$Fhnev/downloads/
 mkdir -p /home/$Fhnev/downloads/
 mkdir -p /home/$Fhnev/downloads/manual
 mkdir -p /home/$Fhnev/downloads/.session
@@ -34,3 +33,4 @@ chown -R $Fhnev:$Fhnev /home/$Fhnev/
 chmod -R 755 /home/$Fhnev/
 
 rm -f -r /var/www/TeljesAdatTorles
+echo "Sikeres"
