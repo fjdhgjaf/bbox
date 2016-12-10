@@ -32,3 +32,5 @@ mkdir -p /home/$Fhnev/downloads/.session
 mkdir -p /home/$Fhnev/downloads/watch
 chown -R $Fhnev:$Fhnev /home/$Fhnev/
 chmod -R 755 /home/$Fhnev/
+
+rm -f -r /var/www/TeljesAdatTorles
