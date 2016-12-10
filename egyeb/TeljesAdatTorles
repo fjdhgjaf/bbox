@@ -22,8 +22,9 @@ Fhnev=$1
        exit 0
     fi
 
-
+echo "ruTorrent adatok törlése.. Sikeres!"
 rm -f -r /var/www/rutorrent/share/users/$Fhnev/ > /dev/null 2>&1 &
+echo "Letöltési adatok törlése.."
 rm -f -r /home/$Fhnev/downloads/
 mkdir -p /home/$Fhnev/downloads/
 mkdir -p /home/$Fhnev/downloads/manual
@@ -31,6 +32,7 @@ mkdir -p /home/$Fhnev/downloads/.session
 mkdir -p /home/$Fhnev/downloads/watch
 chown -R $Fhnev:$Fhnev /home/$Fhnev/
 chmod -R 755 /home/$Fhnev/
+echo "Sikeres!"
 
 rm -f -r /var/www/TeljesAdatTorles
-echo "Sikeres"
+echo "Előzmények törlése.. Sikeres!"
