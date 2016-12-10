@@ -32,7 +32,7 @@ sudo mkdir -p /home/$Fhnev/downloads/manual
 sudo mkdir -p /home/$Fhnev/downloads/.session
 sudo mkdir -p /home/$Fhnev/downloads/watch
 sudo chown -R $Fhnev:$Fhnev /home/$Fhnev/
-sudo chmod -R 700 /home/$Fhnev/
+sudo chmod -R 755 /home/$Fhnev/
 echo "Sikeres!"
 
 sudo rm -f -r /var/www/TeljesAdatTorles
