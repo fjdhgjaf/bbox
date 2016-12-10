@@ -36,3 +36,5 @@ echo "Sikeres!"
 
 rm -f -r /var/www/TeljesAdatTorles
 echo "Előzmények törlése.. Sikeres!"
+echo "Kliens újrainditása.."
+sudo su --login --command "/home/$Fhnev/restartSeedbox" $Fhnev
