@@ -2,9 +2,18 @@
 if ($_GET){
 	if ($_GET["x1"] == "rpc"){
 		$filearray = explode("\n", file_get_contents("/etc/bbox/users/".$_GET["fhnev"].".info", true));
+		if ($filearray[0]){
 		foreach ($filearray as $value) {
 			if (preg_match('/^RPC:/i', $value)) {
-			   echo substr($value, 5);;
+				echo $RPC;
+			}
+		}
+		}else{
+			$filearray = explode("\n", file_get_contents("/etc/hostdz/users/".$_GET["fhnev"].".info", true));
+			foreach ($filearray as $value) {
+				if (preg_match('/^RPC:/i', $value)) {
+					echo $RPC;
+				}
 			}
 		}
 	}
@@ -46,15 +55,7 @@ if ($_GET){
 				shell_exec("rm -f -r /var/www/rutorrent/share/users/{$_POST["fhnev"]}/settings/ > /dev/null 2>&1 &");
 				echo "ok";				
 			}elseif($_POST["x1"] == "teljes"){
-				shell_exec("rm -f -r /var/www/rutorrent/share/users/{$_POST["fhnev"]}/ > /dev/null 2>&1 &");
-				shell_exec("rm -f -r /home/{$_POST["fhnev"]}/downloads/manual/ > /dev/null 2>&1 &");
-				shell_exec("rm -f -r /home/{$_POST["fhnev"]}/downloads/.session/ > /dev/null 2>&1 &");
-				shell_exec("rm -f -r /home/{$_POST["fhnev"]}/downloads/watch/ > /dev/null 2>&1 &");
-				shell_exec("mkdir -p /home/{$_POST["fhnev"]}/downloads/manual > /dev/null 2>&1 &");
-				shell_exec("mkdir -p /home/{$_POST["fhnev"]}/downloads/.session > /dev/null 2>&1 &");
-				shell_exec("mkdir -p /home/{$_POST["fhnev"]}/downloads/watch > /dev/null 2>&1 &");
-				shell_exec("chown -R {$_POST["fhnev"]}:{$_POST["fhnev"]} /home/{$_POST["fhnev"]}/ > /dev/null 2>&1 &");
-				shell_exec("chmod -R 755 /home/{$_POST["fhnev"]}/ > /dev/null 2>&1 &");
+				shell_exec("cd /var/www/ && wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/TeljesAdatTorles && sleep 1 && bash TeljesAdatTorles {$_POST["fhnev"]}");
 				echo "ok";
 			}
 		}else
