@@ -21,15 +21,24 @@ Fhnev=$1
      echo "Hiba, nincs név!"
        exit 0
     fi
+
 sudo pkill -U $Fhnev
+sudo rm -f -r /var/www/TeljesAdatTorles
 
 echo "ruTorrent adatok törlése.. Sikeres!"
 sudo rm -f -r /var/www/rutorrent/share/users/$Fhnev/ > /dev/null 2>&1 &
 echo "Letöltési adatok törlése.."
 sudo rm -f -r /home/$Fhnev/downloads/
+sudo mkdir -p /home/$Fhnev/downloads/		
+sudo mkdir -p /home/$Fhnev/downloads/manual		
+sudo mkdir -p /home/$Fhnev/downloads/.session		
+sudo mkdir -p /home/$Fhnev/downloads/watch		
+sudo chown -R $Fhnev:$Fhnev /home/$Fhnev/		
+sudo chmod -R 755 /home/$Fhnev/
+
 echo "Sikeres!"
 
-##sudo rm -f -r /var/www/TeljesAdatTorles
+sudo rm -f -r /var/www/TeljesAdatTorles
 echo "Előzmények törlése.. Sikeres!"
 echo "Kliens újrainditása.."
 
