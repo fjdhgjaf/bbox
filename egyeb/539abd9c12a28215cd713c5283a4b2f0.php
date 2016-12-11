@@ -1,22 +1,23 @@
 <?php
 if ($_GET){
-	if ($_GET["x1"] == "rpc"){
-		$filearray = explode("\n", file_get_contents("/etc/bbox/users/".$_GET["fhnev"].".info", true));
-		if ($filearray[0]){
-		foreach ($filearray as $value) {
-			if (preg_match('/^RPC:/i', $value)) {
-				echo $RPC;
-			}
-		}
-		}else{
-			$filearray = explode("\n", file_get_contents("/etc/hostdz/users/".$_GET["fhnev"].".info", true));
-			foreach ($filearray as $value) {
-				if (preg_match('/^RPC:/i', $value)) {
-					echo $RPC;
-				}
-			}
-		}
-	}
+        if ($_GET["x1"] == "rpc"){
+                $filearray0 = file_get_contents("/etc/bbox/users/".$_GET["fhnev"].".info", true);
+                $filearray = explode("\n", file_get_contents("/etc/bbox/users/".$_GET["fhnev"].".info", true));
+                if ($filearray0[0]){
+                foreach ($filearray as $value) {
+                        if (preg_match('/^RPC:/i', $value)) {
+                                echo substr($value, 5);;
+                        }
+                }
+                }else{
+                        $filearray = explode("\n", file_get_contents("/etc/hostdz/users/".$_GET["fhnev"].".info", true));
+                        foreach ($filearray as $value) {
+                                if (preg_match('/^RPC:/i', $value)) {
+                                        echo substr($value, 5);;
+                                }
+                        }
+                }
+        }
 }elseif($_POST){
 	if ($_POST["ApiKey"] == md5("{$_POST["fhnev"]}=|rb|=fhrestart") AND !empty($_POST["fhnev"])){
 		$filearray = file_get_contents("/var/www/rutorrent/conf/users/{$_POST["fhnev"]}/access.ini", true);
