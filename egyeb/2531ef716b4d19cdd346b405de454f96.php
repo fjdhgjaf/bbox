@@ -198,7 +198,8 @@ $load = round($loads[0]/($core_nums + 1)*100, 2);
 		$CPUInfo."=|=".
 		$TorrentekSzama;
 	}elseif ($_GET["mit"] == "update"){
-		shell_exec("cd /home && wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/update && sleep 3 && bash update");
+		shell_exec("cd /home && sudo wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/update && bash update");
+		echo "Frissítés sikeres.";
 	}
 }
 ?>
