@@ -460,10 +460,14 @@ rm -f -R /var/www/rutorrent/plugins/mediastream
 rm -f -R /var/www/stream
 
 cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
 
-cd /var/www/rutorrent/plugins/
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
+git clone https://github.com/nelu/rutorrent-thirdparty-plugins.git
+cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/filemanager /var/www/rutorrent/plugins/filemanager/
+cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/fileshare /var/www/rutorrent/plugins/fileshare/
+cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/fileupload /var/www/rutorrent/plugins/fileupload/
+cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/mediastream /var/www/rutorrent/plugins/mediastream/
+rm -f -R /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/
+
 
 cp /etc/bbox/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
 
@@ -478,7 +482,6 @@ perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/
 cd /var/www/rutorrent/plugins/
 rm -r /var/www/rutorrent/plugins/fileshare
 rm -r /var/www/share
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileshare
 mkdir /var/www/share
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
 ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
