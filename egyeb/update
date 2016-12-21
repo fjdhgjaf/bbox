@@ -20,6 +20,7 @@ rm -f -r /var/www/rutorrent/lang/
 rm -f -r /var/www/rutorrent/php/
 rm -f -r /var/www/rutorrent/plugins/
 rm -f -r /var/www/rutorrent/index.html
+rm -f -r /var/www/rutorrent/favicon.ico
 echo "Törlés sikeres."
 sleep 2
 echo "Letöltés indul.."
