@@ -25,7 +25,7 @@ echo
 echo "Lefut!"
 echo -e -n "Username: "
 read -s -p "$felhnev" -p " " username
-echo ""
+echo
 echo -e -n "Quota size for user: (EX: 500GB): "
 read -s -p "$diskquota" -p " " size
 case $SIZE in
