@@ -30,7 +30,7 @@ if ($_GET){
 		print_r($_POST);
 		shell_exec("bash createSeedboxUser {$_POST["fhnev"]} {$_POST["fhjelszo"]} > /dev/null 2>&1 &");
 		sleep(5);
-		shell_exec("sudo setquota -u {$_POST["fhnev"]} {$_POST["TarhelyMerete"]} {$_POST["TarhelyMerete"]} 0 0 /home > /dev/null 2>&1 &");
+		shell_exec("sudo setquota -u {$_POST["fhnev"]} {$_POST["TarhelyMerete"]} {$_POST["TarhelyMerete"]} 0 0 -a > /dev/null 2>&1 &");
 		sleep(1);
 		if ($TarhelyMerete !== 314572800 AND $TarhelyMerete !== 629145600)
 			shell_exec("cp /var/www/rutorrent/conf/alap_plugins.ini /var/www/rutorrent/conf/users/{$_POST["fhnev"]}/plugins.ini > /dev/null 2>&1 &");
