@@ -21,6 +21,10 @@ rm -f -r /var/www/rutorrent/php/
 rm -f -r /var/www/rutorrent/plugins/
 rm -f -r /var/www/rutorrent/index.html
 rm -f -r /var/www/rutorrent/favicon.ico
+
+rm -f -r /usr/bin/reboot_bbuser
+rm -f -r /usr/bin/quota_bbset
+rm -f -r /usr/bin/clean_bbmem
 echo "Törlés sikeres."
 sleep 2
 echo "Letöltés indul.."
@@ -28,16 +32,16 @@ sleep 1
 cd /var/www/
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/rutorrent.zip
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/reboot_bbuser
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/quota_set
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_mem
+wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/quota_bbset
+wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_bbmem
 
 
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
-mv /var/www/quota_set /usr/bin/quota_set
-mv /var/www/clean_mem /usr/bin/clean_mem
+mv /var/www/quota_set /usr/bin/quota_bbset
+mv /var/www/clean_mem /usr/bin/clean_bbmem
 sudo chmod 755 /usr/bin/reboot_bbuser
-sudo chmod 755 /usr/bin/quota_set
-sudo chmod 755 /usr/bin/clean_mem
+sudo chmod 755 /usr/bin/quota_bbset
+sudo chmod 755 /usr/bin/clean_bbmem
 
 
 unzip /var/www/rutorrent.zip
