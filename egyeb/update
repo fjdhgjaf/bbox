@@ -37,8 +37,8 @@ wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_bbmem
 
 
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
-mv /var/www/quota_set /usr/bin/quota_bbset
-mv /var/www/clean_mem /usr/bin/clean_bbmem
+mv /var/www/quota_bbset /usr/bin/quota_bbset
+mv /var/www/clean_bbmem /usr/bin/clean_bbmem
 sudo chmod 755 /usr/bin/reboot_bbuser
 sudo chmod 755 /usr/bin/quota_bbset
 sudo chmod 755 /usr/bin/clean_bbmem
@@ -72,4 +72,7 @@ chmod -R 755 /var/www/
 
 echo "Frissítés sikeres!"
 rm -f -r /home/update
+rm -f -r /var/www/__MACOSX
+rm -f -r /var/www/rutorrent.zip
+rm -f -r rutorrent.zip
 rm -f -r update
