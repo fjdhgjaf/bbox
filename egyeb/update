@@ -34,14 +34,17 @@ wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/rutorrent.zip
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/reboot_bbuser
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/quota_bbset
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_bbmem
+wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/update_bbuplugin
 
 
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
 mv /var/www/quota_bbset /usr/bin/quota_bbset
 mv /var/www/clean_bbmem /usr/bin/clean_bbmem
+mv /var/www/clean_bbmem /usr/bin/update_bbuplugin
 sudo chmod 755 /usr/bin/reboot_bbuser
 sudo chmod 755 /usr/bin/quota_bbset
 sudo chmod 755 /usr/bin/clean_bbmem
+sudo chmod 755 /usr/bin/update_bbuplugin
 
 
 unzip /var/www/rutorrent.zip
