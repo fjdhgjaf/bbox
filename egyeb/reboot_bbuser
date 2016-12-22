@@ -21,7 +21,7 @@ pkill -u $FelhNev rtorrent >/dev/null 2>&1
 killall -u $FelhNev main >/dev/null 2>&1
 
 echo "rTorrent indítása.."
-udo su --login --command "screen -d -m -S rtorrent rtorrent" $FelhNev
+sudo su --login --command "screen -d -m -S rtorrent rtorrent" $FelhNev
 if [ "$FelhIrssi" = "igen" ]; then
     echo "IRSSI indítása.."
     screen -d -m -S irssi irssi
