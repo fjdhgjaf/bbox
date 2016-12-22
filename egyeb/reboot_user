@@ -1,0 +1,29 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# | The script was created           Tiby08 (tiby0108@gmail.com) |
+# |--------------------------------------------------------------|
+# | Version info: v0.1 beta                                      |
+# |--------------------------------------------------------------|
+#
+#
+FelhNev=$1
+FelhIrssi=$2
+rm -f -r /home/$FelhNev/downloads/.session/rtorrent.lock
+
+export HOME=/home/$FelhNev
+
+echo "Killing all related processes..."
+
+pkill -u $FelhNev irssi >/dev/null 2>&1
+pkill -u $FelhNev rtorrent >/dev/null 2>&1
+killall -u $FelhNev main >/dev/null 2>&1
+
+echo "Start rTorrent..."
+screen -d -m -S rtorrent rtorrent
+if [ "$FelhIrssi" = "igen" ]; then
+    echo "Start IRSSI..."
+    screen -d -m -S irssi irssi
+fi
