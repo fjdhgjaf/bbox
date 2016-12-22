@@ -57,4 +57,4 @@ case $SIZE in
 esac
 }
 
-_setdisk
+_setdisk $1 $2
