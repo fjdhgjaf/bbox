@@ -1,0 +1,35 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# | The script was created           Tiby08 (tiby0108@gmail.com) |
+# |--------------------------------------------------------------|
+# | Version info: v0.1 beta                                      |
+# |--------------------------------------------------------------|
+#
+#
+felhnev=$1
+cpu=$2
+
+if [ ! $felhnev ]; then
+    echo -e -n "Username: "
+    read felhnev
+    fi
+ if [ ! $felhnev ]; then
+     echo "Error no Username!"
+       exit 0
+    fi
+cd /var/www
+rm -f -r /var/www/rutorrent/conf/users/$felhnev/plugins.ini
+
+if [ $cpu = "igen" ]; then
+    wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/plugin_cpu.ini
+    mv /var/www/plugin_cpu.ini /var/www/rutorrent/conf/users/$felhnev/plugins.ini
+    echo "Sikeres frissítés!"
+    exit 0
+fi
+
+wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/plugin_alap.ini
+mv /var/www/plugin_alap.ini /var/www/rutorrent/conf/users/$felhnev/plugins.ini
+echo "Sikeres frissítés!"
