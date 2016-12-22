@@ -72,3 +72,4 @@ chmod -R 755 /var/www/
 
 echo "Frissítés sikeres!"
 rm -f -r /home/update
+rm -f -r update
