@@ -14,11 +14,15 @@
 function _setdisk() {
 local felhnev=$1
 local diskquota=$2
+local username=a
+local size=b
+
 echo "================================================================================="
 echo "Disk Space MUST be in GB/TB - Do not attempt to add decimals in space settings,"
 echo "Example - Good: 711GB OR 2TB, Example - Bad: 711.5GB OR 2.5TB"
 echo "================================================================================="
 echo
+echo "Lefut!;
 echo -e -n "Username: "
 read -s -p "$felhnev" -p " " username
 echo ""
@@ -29,16 +33,19 @@ case $SIZE in
     QUOTASIZE=$(echo $SIZE|cut -d'T' -f1)
     DISKSIZE=$(($QUOTASIZE * 1024 * 1024 * 1024))
     setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+  echo "Sikeres szerkesztés";
   ;;
   *GB)
     QUOTASIZE=$(echo $SIZE|cut -d'G' -f1)
     DISKSIZE=$(($QUOTASIZE * 1024 * 1024))
     setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+  echo "Sikeres szerkesztés";
   ;;
   *MB)
     QUOTASIZE=$(echo $SIZE|cut -d'M' -f1)
                 DISKSIZE=$(($QUOTASIZE * 1024))
                 setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+  echo "Sikeres szerkesztés";
   ;;
   *)
     echo "================================================================================="
