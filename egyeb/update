@@ -26,7 +26,7 @@ sleep 2
 echo "Letöltés indul.."
 sleep 1
 cd /var/www/
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/ruTorrent.zip
+wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/rutorrent.zip
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/reboot_bbuser
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/quota_set
 wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_mem
@@ -35,15 +35,24 @@ wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_mem
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
 mv /var/www/quota_set /usr/bin/quota_set
 mv /var/www/clean_mem /usr/bin/clean_mem
+sudo chmod 755 /usr/bin/reboot_bbuser
+sudo chmod 755 /usr/bin/quota_set
+sudo chmod 755 /usr/bin/clean_mem
 
 
-
-unzip /var/www/ruTorrent.zip
-chmod 755 /var/www/rutorrent/plugins/quotaspace/run.sh
+unzip /var/www/rutorrent.zip
 perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
 perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
 perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
 
+sudo apt-get install --yes php5-memcached memcached
+#16 GB cache
+perl -pi -e "s/memory_limit = 128M/memory_limit = 16384M/g" /etc/php5/fpm/php.ini
+perl -pi -e "s/max_execution_time = 30/max_execution_time = 300/g" /etc/php5/fpm/php.ini
+perl -pi -e "s/max_input_time = 60/max_input_time = -1/g" /etc/php5/fpm/php.ini
+
+service php-fpm restart
+service apache2 restart
 
 #rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
 #rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
