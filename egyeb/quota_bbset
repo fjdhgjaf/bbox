@@ -14,47 +14,51 @@
 function _setdisk() {
 local felhnev=$1
 local diskquota=$2
-local username=a
-local size=b
 
-echo "================================================================================="
-echo "Disk Space MUST be in GB/TB - Do not attempt to add decimals in space settings,"
-echo "Example - Good: 711GB OR 2TB, Example - Bad: 711.5GB OR 2.5TB"
-echo "================================================================================="
-echo
-echo "Lefut!"
-echo -e -n "Username: "
-read -s -p "$felhnev" -p " " username
-echo
-echo -e -n "Quota size for user: (EX: 500GB): "
-read -s -p "$diskquota" -p " " size
-case $SIZE in
+if [ ! $felhnev ]; then
+    echo -e -n "Username: "
+    read felhnev
+    fi
+ if [ ! $felhnev ]; then
+     echo "Error no Username!"
+       exit 0
+    fi
+if [ ! $diskquota ]; then
+    echo -e -n "Username: "
+    read diskquota
+    fi
+ if [ ! $diskquota ]; then
+     echo "Error no diskquota!"
+       exit 0
+    fi
+
+case $diskquota in
   *TB)
-    QUOTASIZE=$(echo $SIZE|cut -d'T' -f1)
+    QUOTASIZE=$(echo $diskquota|cut -d'T' -f1)
     DISKSIZE=$(($QUOTASIZE * 1024 * 1024 * 1024))
-    setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
-  echo "Sikeres szerkesztés"
+    setquota -u ${felhnev} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+  echo "Sikeres szerkesztés!"
   ;;
   *GB)
-    QUOTASIZE=$(echo $SIZE|cut -d'G' -f1)
+    QUOTASIZE=$(echo $diskquota|cut -d'G' -f1)
     DISKSIZE=$(($QUOTASIZE * 1024 * 1024))
-    setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
-  echo "Sikeres szerkesztés"
+    setquota -u ${felhnev} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+  echo "Sikeres szerkesztés!"
   ;;
   *MB)
-    QUOTASIZE=$(echo $SIZE|cut -d'M' -f1)
+    QUOTASIZE=$(echo $diskquota|cut -d'M' -f1)
                 DISKSIZE=$(($QUOTASIZE * 1024))
-                setquota -u ${username} ${DISKSIZE} ${DISKSIZE} 0 0 -a
-  echo "Sikeres szerkesztés"
+                setquota -u ${felhnev} ${DISKSIZE} ${DISKSIZE} 0 0 -a
+  echo "Sikeres szerkesztés!"
   ;;
   *)
     echo "================================================================================="
-    echo "Disk Space MUST be in GB/TB - Do not attempt to add deciamals in space settings,"
-    echo "Example - Good: 711GB OR 2TB, Example - Bad: 711.5GB OR 2.5TB"
-    echo "Exiting script, type bash $0 and try again"
+    echo "Hibás szerkesztés, így használd: 10MB vagy 10GB vagy 10TB"
     echo "=================================================================================";exit 0
   ;;
 esac
 }
 
-_setdisk $1 $2
+username=$1
+size=$2
+_setdisk $username $size
