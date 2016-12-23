@@ -13,30 +13,6 @@
 #
 #
 
-rm -f -r /var/www/rutorrent/css/
-rm -f -r /var/www/rutorrent/images/
-rm -f -r /var/www/rutorrent/js/
-rm -f -r /var/www/rutorrent/lang/
-rm -f -r /var/www/rutorrent/php/
-rm -f -r /var/www/rutorrent/plugins/
-rm -f -r /var/www/rutorrent/index.html
-rm -f -r /var/www/rutorrent/favicon.ico
-
-rm -f -r /usr/bin/reboot_bbuser
-rm -f -r /usr/bin/quota_bbset
-rm -f -r /usr/bin/clean_bbmem
-echo "Törlés sikeres."
-sleep 2
-echo "Letöltés indul.."
-sleep 1
-cd /var/www/
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/rutorrent.zip
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/reboot_bbuser
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/quota_bbset
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/clean_bbmem
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/update_bbuplugin
-
-
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
 mv /var/www/quota_bbset /usr/bin/quota_bbset
 mv /var/www/clean_bbmem /usr/bin/clean_bbmem
@@ -46,36 +22,17 @@ sudo chmod 755 /usr/bin/quota_bbset
 sudo chmod 755 /usr/bin/clean_bbmem
 sudo chmod 755 /usr/bin/update_bbuplugin
 
-
-unzip /var/www/rutorrent.zip
-perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
-perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
-perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
-
-sudo apt-get install --yes php5-memcached memcached
-#16 GB cache
-perl -pi -e "s/memory_limit = 128M/memory_limit = 16384M/g" /etc/php5/fpm/php.ini
-perl -pi -e "s/max_execution_time = 30/max_execution_time = 300/g" /etc/php5/fpm/php.ini
-perl -pi -e "s/max_input_time = 60/max_input_time = -1/g" /etc/php5/fpm/php.ini
-
-service php-fpm restart
-service apache2 restart
-
-#rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
-#rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
-#echo "Törlés sikeres."
-#sleep 2
-#echo "Letöltés indul.."
-#sleep 1
-#cd /var/www/
-#wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
-#wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
+rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
+rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
+echo "Törlés sikeres."
+sleep 2
+echo "Letöltés indul.."
+sleep 1
+cd /var/www/
+wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
+wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
 chown -R www-data:www-data /var/www/
 chmod -R 755 /var/www/
 
 echo "Frissítés sikeres!"
-rm -f -r /home/update
-rm -f -r /var/www/__MACOSX
-rm -f -r /var/www/rutorrent.zip
-rm -f -r rutorrent.zip
 rm -f -r update
