@@ -22,7 +22,7 @@ if ($_GET){
 	if ($_POST["ApiKey"] == md5("{$_POST["fhnev"]}=|rb|=fhrestart") AND !empty($_POST["fhnev"])){
 		$filearray = file_get_contents("/var/www/rutorrent/conf/users/{$_POST["fhnev"]}/access.ini", true);
 		if ($filearray[0]){
-			shell_exec("sudo su --login --command \"/home/{$_POST["fhnev"]}/restartSeedbox\" {$_POST["fhnev"]} > /dev/null 2>&1 &");
+			shell_exec("bash reboot_bbuser {$_POST["fhnev"]} igen > /dev/null 2>&1 &");
 			echo "ok";
 		}else
 			echo "Not found user with id";
@@ -59,6 +59,12 @@ if ($_GET){
 				shell_exec("cd /var/www/ && wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/TeljesAdatTorles && sleep 1 && bash TeljesAdatTorles {$_POST["fhnev"]}");
 				echo "ok";
 			}
+		}else
+			echo "Not found user with id";
+	}elseif ($_POST["ApiKey"] == md5($_POST["fhnev"]."=|update_bbuplugin|=".$_POST["fhnev"]."=|update_bbuplugin|=") AND !empty($_POST["fhnev"]) AND !empty($_POST["x1"])){
+		$filearray = file_get_contents("/var/www/rutorrent/conf/users/{$_POST["fhnev"]}/access.ini", true);
+		if ($filearray[0]){
+			echo shell_exec("bash update_bbuplugin {$_POST["fhnev"]} {$_POST["x1"]} > /dev/null 2>&1 &");
 		}else
 			echo "Not found user with id";
 	}else
