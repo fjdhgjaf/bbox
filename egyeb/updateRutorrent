@@ -1,0 +1,45 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# |--------------------------------------------------------------|
+# | The script thank you for Notos (notos.korsan@gmail.com)      |
+# |--------------------------------------------------------------|
+# | The script was further developed Tiby08 (tiby0108@gmail.com) |
+# |--------------------------------------------------------------|
+# | Version info: v0.1 beta                                      |
+# |--------------------------------------------------------------|
+#
+#
+
+rm -f -r /var/www/rutorrent/css/
+rm -f -r /var/www/rutorrent/images/
+rm -f -r /var/www/rutorrent/js/
+rm -f -r /var/www/rutorrent/lang/
+rm -f -r /var/www/rutorrent/php/
+rm -f -r /var/www/rutorrent/plugins/
+rm -f -r /var/www/rutorrent/index.html
+rm -f -r /var/www/rutorrent/favicon.ico
+
+echo "Törlés sikeres."
+sleep 2
+echo "Letöltés indul.."
+sleep 1
+cd /var/www/
+wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/rutorrent.zip
+
+unzip /var/www/rutorrent.zip
+perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
+perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
+perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
+
+chown -R www-data:www-data /var/www/
+chmod -R 755 /var/www/
+
+echo "Frissítés sikeres!"
+rm -f -r /home/update
+rm -f -r /var/www/__MACOSX
+rm -f -r /var/www/rutorrent.zip
+rm -f -r rutorrent.zip
+rm -f -r update
