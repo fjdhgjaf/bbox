@@ -13,14 +13,14 @@
 #
 #
 
-mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
-mv /var/www/quota_bbset /usr/bin/quota_bbset
-mv /var/www/clean_bbmem /usr/bin/clean_bbmem
-mv /var/www/update_bbuplugin /usr/bin/update_bbuplugin
-sudo chmod 755 /usr/bin/reboot_bbuser
-sudo chmod 755 /usr/bin/quota_bbset
-sudo chmod 755 /usr/bin/clean_bbmem
-sudo chmod 755 /usr/bin/update_bbuplugin
+mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser > /dev/null 2>&1 &
+mv /var/www/quota_bbset /usr/bin/quota_bbset > /dev/null 2>&1 &
+mv /var/www/clean_bbmem /usr/bin/clean_bbmem > /dev/null 2>&1 &
+mv /var/www/update_bbuplugin /usr/bin/update_bbuplugin > /dev/null 2>&1 &
+sudo chmod 755 /usr/bin/reboot_bbuser > /dev/null 2>&1 &
+sudo chmod 755 /usr/bin/quota_bbset > /dev/null 2>&1 &
+sudo chmod 755 /usr/bin/clean_bbmem > /dev/null 2>&1 &
+sudo chmod 755 /usr/bin/update_bbuplugin > /dev/null 2>&1 &
 
 rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
 rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
