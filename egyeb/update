@@ -22,15 +22,18 @@ sudo chmod 755 /usr/bin/quota_bbset > /dev/null 2>&1 &
 sudo chmod 755 /usr/bin/clean_bbmem > /dev/null 2>&1 &
 sudo chmod 755 /usr/bin/update_bbuplugin > /dev/null 2>&1 &
 
-rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
-rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
+rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php 2>&1 &
+rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php 2>&1 &
+rm -f -r /var/www/rutorrent/plugins/diskspace/action.php 2>&1 &
 echo "Törlés sikeres."
-sleep 2
 echo "Letöltés indul.."
 sleep 1
 cd /var/www/
 wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
 wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
+wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/rut_action.php
+mv /var/www/rut_action /var/www/rutorrent/plugins/diskspace/action.php > /dev/null 2>&1 &
+
 chown -R www-data:www-data /var/www/
 chmod -R 755 /var/www/
 
