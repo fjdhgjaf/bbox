@@ -10,17 +10,18 @@
 # |--------------------------------------------------------------|
 #
 
-fnev="root"
-jelszo="root_jelszo"
+TavoliNev="root"
+TavoliJelszo="root_pw"
 host="ip_cim"
+FelhNev="felhnev"
 
 tavoli_rutorrent_share_mappa="/var/www/rutorrent/share/users/"
-tavoli_home_manual_mappa="/home/darkmaster/downloads/"
-tavoli_home_session_mappa="/home/darkmaster/downloads/"
+tavoli_home_manual_mappa="/home/$FelhNev/downloads/"
+tavoli_home_session_mappa="/home/$FelhNev/downloads/"
 
-helyi_rutorrent_share_mappa="/var/www/rutorrent/share/users/darkmaster/"
-helyi_home_manual_mappa="/home/darkmaster/downloads/manual/"
-helyi_home_session_mappa="/home/darkmaster/downloads/.session/"
+helyi_rutorrent_share_mappa="/var/www/rutorrent/share/users/$FelhNev/"
+helyi_home_manual_mappa="/home/$FelhNev/downloads/manual/"
+helyi_home_session_mappa="/home/$FelhNev/downloads/.session/"
 
 bldylw='\e[1;33m' # Yellow
 bldgrn='\e[1;32m' # Green
@@ -46,7 +47,7 @@ else
 
   rm -f /tmp/root.lock
 echo -e "${bldylw}Rutorrent share mappa másolása folyamatban.. "
-lftp -p 22 -u "$fnev","$jelszo" sftp://"$host" << EOF
+lftp -p 22 -u "$TavoliNev","$TavoliJelszo" sftp://"$host" << EOF
 	set mirror:use-pget-n 5
 	mirror -R -c -P5  "$helyi_rutorrent_share_mappa" "$tavoli_rutorrent_share_mappa"
 	quit
@@ -56,7 +57,7 @@ echo -e "${bldgrn}Kész!"
 sleep 1
 echo -e "${bldylw}Session mappa másolása folyamatban.. "
 
-lftp -p 22 -u "$fnev","$jelszo" sftp://"$host" << EOF
+lftp -p 22 -u "$TavoliNev","$TavoliJelszo" sftp://"$host" << EOF
 	set mirror:use-pget-n 5
 	mirror -R -c -P5  "$helyi_home_session_mappa" "$tavoli_home_session_mappa"
 	quit
@@ -66,7 +67,7 @@ echo -e "${bldgrn}Kész!"
 sleep 1
 echo -e "${bldylw}Letöltések mappa másolása folyamatban.. "
 
-lftp -p 22 -u "$fnev","$jelszo" sftp://"$host" << EOF
+lftp -p 22 -u "$TavoliNev","$TavoliJelszo" sftp://"$host" << EOF
 	set mirror:use-pget-n 5
 	mirror -R -c -P5  "$helyi_home_manual_mappa" "$tavoli_home_manual_mappa"
 	quit
