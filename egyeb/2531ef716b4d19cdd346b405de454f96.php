@@ -56,8 +56,8 @@ if ($_GET["xbskjngjw"] == "782ac4ab0f1065eb25875497e3b587cb"){
 		}
 
 		if ($quotaEnabled) {
-			$TeljesMeret = shell_exec("/usr/bin/sudo /usr/sbin/repquota -u $homeBase | grep ^".$quotaUser." | awk '{print \$4}'") * 1024;
-			$used = shell_exec("/usr/bin/sudo /usr/sbin/repquota -u $homeBase | grep ^".$quotaUser." | awk '{print \$3}'") * 1024;
+			$TeljesMeret = shell_exec("/usr/bin/sudo /usr/sbin/repquota -u -a | grep ^".$quotaUser." | awk '{print \$4}'") * 1024;
+			$used = shell_exec("/usr/bin/sudo /usr/sbin/repquota -u -a | grep ^".$quotaUser." | awk '{print \$3}'") * 1024;
 
 			if ($TeljesMeret == 0) {
 				$TeljesMeret = disk_total_space($topDirectory);
