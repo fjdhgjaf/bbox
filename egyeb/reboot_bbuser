@@ -16,10 +16,10 @@ rm -f -r /home/$FelhNev/downloads/.session/rtorrent.lock
 
 echo "Futó folyamatok bezárása.."
 
-pkill -u $FelhNev irssi >/dev/null 2>&1
-pkill -u $FelhNev rtorrent >/dev/null 2>&1
-pkill -u $FelhNev >/dev/null 2>&1
-killall -u $FelhNev main >/dev/null 2>&1
+pkill -u $FelhNev irssi
+pkill -u $FelhNev rtorrent
+pkill -u $FelhNev
+killall -u $FelhNev main
 
 echo "rTorrent indítása.."
 sudo su --login --command "screen -d -m -S rtorrent rtorrent" $FelhNev
