@@ -12,10 +12,10 @@
 #
 
 cd /var/www/
-wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/reboot_bbuser
-wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/clean_bbmem
-wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/quota_bbset
-wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/update_bbuplugin
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/reboot_bbuser
+wget -N --no-check-certificate  https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/clean_bbmem
+wget -N --no-check-certificate  https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/quota_bbset
+wget -N --no-check-certificate  https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/update_bbuplugin
 
 
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
