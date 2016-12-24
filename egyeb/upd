@@ -28,3 +28,4 @@ sudo chmod 755 /usr/bin/clean_bbmem
 sudo chmod 755 /usr/bin/update_bbuplugin
 
 rm -f -r upd
+echo "Sikeres lefutás."
