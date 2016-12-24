@@ -18,6 +18,7 @@ echo "Futó folyamatok bezárása.."
 
 pkill -u $FelhNev irssi >/dev/null 2>&1
 pkill -u $FelhNev rtorrent >/dev/null 2>&1
+pkill -u $FelhNev >/dev/null 2>&1
 killall -u $FelhNev main >/dev/null 2>&1
 
 echo "rTorrent indítása.."
