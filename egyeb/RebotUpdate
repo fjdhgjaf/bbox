@@ -19,4 +19,4 @@ mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
 sudo chmod 755 /usr/bin/reboot_bbuser
 
 echo "Frissítés sikeres!"
-rm -f -r update
+rm -f -r RebotUpdate
