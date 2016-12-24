@@ -16,11 +16,9 @@ rm -f -r /home/$FelhNev/downloads/.session/rtorrent.lock
 
 echo "Futó folyamatok bezárása.."
 
-pkill -u $FelhNev irssi
-pkill -u $FelhNev rtorrent
 pkill -u $FelhNev
-killall -u $FelhNev main
-
+sudo su --login --command "kill -9 -1" $FelhNev
+sleep 1
 echo "rTorrent indítása.."
 sudo su --login --command "screen -d -m -S rtorrent rtorrent" $FelhNev
 if [ "$FelhIrssi" = "igen" ]; then
