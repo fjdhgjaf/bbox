@@ -23,7 +23,6 @@ rm -f -r /var/www/rutorrent/index.html
 rm -f -r /var/www/rutorrent/favicon.ico
 
 echo "Törlés sikeres."
-sleep 2
 echo "Letöltés indul.."
 sleep 1
 cd /var/www/
