@@ -1,0 +1,17 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# |--------------------------------------------------------------|
+# | The script was developed Tiby08 (tiby0108@gmail.com)         |
+# |--------------------------------------------------------------|
+# | Version info: v0.1 beta                                      |
+# |--------------------------------------------------------------|
+#
+#
+
+perl -pi -e "s/5, true/300, true/g" /var/www/rutorrent/conf/config.php
+perl -pi -e "s/30, true/300, true/g" /var/www/rutorrent/conf/config.php
+perl -pi -e "s/5, true/300, true/g" /etc/bbox/rutorrent.conf.users.config.php.template
+perl -pi -e "s/30, true/300, true/g" /etc/bbox/rutorrent.conf.users.config.php.template
