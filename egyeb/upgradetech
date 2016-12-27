@@ -15,3 +15,5 @@ perl -pi -e "s/5, true/300, true/g" /var/www/rutorrent/conf/config.php
 perl -pi -e "s/30, true/300, true/g" /var/www/rutorrent/conf/config.php
 perl -pi -e "s/5, true/300, true/g" /etc/bbox/rutorrent.conf.users.config.php.template
 perl -pi -e "s/30, true/300, true/g" /etc/bbox/rutorrent.conf.users.config.php.template
+
+rm -f -r upgradetech
