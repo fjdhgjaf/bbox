@@ -12,21 +12,21 @@
 #
 
 
-rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
-rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
-echo "Törlés sikeres."
-echo "Letöltés indul.."
-sleep 2
-cd /var/www/
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
+#rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
+#rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
+#echo "Törlés sikeres."
+#echo "Letöltés indul.."
+#sleep 2
+#cd /var/www/
+#wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
+#wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
 
-chown -R www-data:www-data /var/www/
-chmod -R 755 /var/www/
+#chown -R www-data:www-data /var/www/
+#chmod -R 755 /var/www/
 
 
-#wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/RebotUpdate
-#bash RebotUpdate
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/RebotUpdate
+bash RebotUpdate
 
 echo "Frissítés sikeres!"
 rm -f -r update
