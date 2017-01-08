@@ -29,13 +29,12 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v
 wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/reboot_bbuser
 wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/deleteSeedboxUser
 
+sudo chmod -R 755 /var/www/
+
 mv /var/www/deleteSeedboxUser /usr/bin/deleteSeedboxUser
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
-sudo chmod 755 /usr/bin/deleteSeedboxUser
-sudo chmod 755 /usr/bin/reboot_bbuser
 
-chown -R www-data:www-data /var/www/
-chmod -R 755 /var/www/
+sudo chown -R www-data:www-data /var/www/
 
 echo "Frissítés sikeres!"
 rm -f -r update
