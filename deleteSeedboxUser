@@ -14,30 +14,29 @@
 
 clear
 
-NEWUSER1=$1
-NEWUSER2=$1
+FelhNev=$1
 
- if [ ! $NEWUSER1 ]; then
+ if [ ! $FelhNev ]; then
     echo -n "Felhasználónév: "
-      read NEWUSER1
+      read FelhNev
     fi
- if [ ! $NEWUSER1 ]; then
+ if [ ! $FelhNev ]; then
      echo "Hiba, nincs név!"
        exit 0
     fi
 
-# 3.1.1
-#kill all processes related to that user
-sudo pkill -U $NEWUSER1
+#Aktiv folyamatok megszuntetese
+sudo pkill -U $FelhNev
 
-bash quota_bbset $NEWUSER1 0GB
+#quota 0-ra allitasa
+bash quota_bbset $FelhNev 0GB
 
-# 3.2
-sudo userdel --remove --force $NEWUSER1 
-sudo perl -pi -e "s/^$NEWUSER1\:.*\n$//g" /etc/apache2/htpasswd
+#felhasznalo, jelszo es osszes fajl torlese
+sudo userdel --remove --force $FelhNev 
+sudo perl -pi -e "s/^$FelhNev\:.*\n$//g" /etc/apache2/htpasswd
 
-sudo rm -r /etc/init/rtorrent.$NEWUSER1.conf
-sudo rm -r /var/www/rutorrent/conf/users/$NEWUSER1
-sudo rm -r /etc/bbox/users/$NEWUSER1.info
-sudo rm -r /var/www/rutorrent/share/users/$NEWUSER1
-sudo rm -r /var/run/screen/S-$NEWUSER1
+sudo rm -r /etc/init/rtorrent.$FelhNev.conf
+sudo rm -r /var/www/rutorrent/conf/users/$FelhNev
+sudo rm -r /etc/bbox/users/$FelhNev.info
+sudo rm -r /var/www/rutorrent/share/users/$FelhNev
+sudo rm -r /var/run/screen/S-$FelhNev
