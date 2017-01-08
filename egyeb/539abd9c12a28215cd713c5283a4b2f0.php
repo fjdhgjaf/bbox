@@ -22,7 +22,7 @@ if ($_GET){
 	if ($_POST["ApiKey"] == md5("{$_POST["fhnev"]}=|rb|=fhrestart") AND !empty($_POST["fhnev"])){
 		$filearray = file_get_contents("/var/www/rutorrent/conf/users/{$_POST["fhnev"]}/access.ini", true);
 		if ($filearray[0]){
-			shell_exec("bash reboot_bbuser {$_POST["fhnev"]} igen > /dev/null 2>&1 &");
+			shell_exec("bash reboot_bbuser {$_POST["fhnev"]} {$_POST["irssi"]} > /dev/null 2>&1 &");
 			echo "ok";
 		}else
 			echo "Not found user with id";
