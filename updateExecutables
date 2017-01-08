@@ -10,21 +10,4 @@
 # |--------------------------------------------------------------|
 #
 
-sudo chmod +x /etc/bbox/updateExecutables
-sudo chmod +x /etc/bbox/createSeedboxUser
-sudo chmod +x /etc/bbox/deleteSeedboxUser
-sudo chmod +x /etc/bbox/installOpenVPN
-sudo chmod +x /etc/bbox/removeWebmin
-sudo chmod +x /etc/bbox/installWebmin
-sudo chmod +x /etc/bbox/downgradeRTorrent
-sudo chmod +x /etc/bbox/upgradeRTorrent
-sudo chmod +x /etc/bbox/ovpni
-sudo chmod +x /etc/bbox/installSABnzbd
-sudo chmod +x /etc/bbox/updategitRepository
-sudo chmod +x /etc/bbox/createOpenSSLServiceCertificate
-sudo chmod +x /etc/bbox/createOpenSSLCACertificate
-sudo chmod +x /etc/bbox/upgradeSeedbox
-sudo chmod +x /etc/bbox/installRapidleech
-sudo chmod +x /etc/bbox/changeUserPassword
-
-##################### LAST LINE ###########
+sudo chmod -R 755 /etc/bbox/
