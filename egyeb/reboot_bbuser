@@ -2,7 +2,7 @@
 # ---------------------------
 #!/bin/bash
 # ---------------------------
-#
+# |--------------------------------------------------------------|
 # | The script was created           Tiby08 (tiby0108@gmail.com) |
 # |--------------------------------------------------------------|
 # | Version info: v0.1 beta                                      |
@@ -12,7 +12,6 @@
 FelhNev=$1
 FelhIrssi=$2
 rm -f -r /home/$FelhNev/downloads/.session/rtorrent.lock
-
 
 echo "Futó folyamatok bezárása.."
 
