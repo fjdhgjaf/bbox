@@ -701,8 +701,18 @@ service apache2 restart
 
 bash /etc/bbox/ChangeDNS $IPADDRESS1
 bash /etc/bbox/InstallCpan
+bash /etc/bbox/egyeb/updateRutorrent
+
+cd /var/www/rutorrent/plugins/
+git clone https://github.com/xombiemp/rutorrentMobile.git mobile
+
+bash /etc/bbox/egyeb/upgradetech
+bash /etc/bbox/egyeb/ApiUpd
+bash /etc/bbox/egyeb/update
 
 rm -f -r ~/bbox-install.sh
+bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh
+
 reboot
 
 ##################### LAST LINE ###########
