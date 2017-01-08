@@ -30,6 +30,8 @@ NEWUSER2=$1
 #kill all processes related to that user
 sudo pkill -U $NEWUSER1
 
+bash quota_bbset	$NEWUSER1 0GB
+
 # 3.2
 sudo userdel --remove --force $NEWUSER1 
 sudo perl -pi -e "s/^$NEWUSER1\:.*\n$//g" /etc/apache2/htpasswd
