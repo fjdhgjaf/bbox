@@ -18,10 +18,9 @@ sudo rm -f -r /usr/bin/deleteSeedboxUser
 
 echo "Törlés sikeres."
 echo "Letöltés indul.."
-sleep 2
+sleep 1
 sudo /etc/init.d/dns-clean restart
 sudo /etc/init.d/networking force-reload
-sleep 3
 cd /var/www/
 wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
 wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
