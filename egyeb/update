@@ -24,6 +24,14 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v
 chown -R www-data:www-data /var/www/
 chmod -R 755 /var/www/
 
+
+
+m -f -r /usr/bin/deleteSeedboxUser
+cd /var/www/
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/deleteSeedboxUser
+mv /var/www/deleteSeedboxUser /usr/bin/deleteSeedboxUser
+sudo chmod 755 /usr/bin/deleteSeedboxUser
+
 wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/RebotUpdate
 bash RebotUpdate >/dev/null 2>&1
 
