@@ -11,11 +11,10 @@
 #
 #
 
-
-rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
-rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
-rm -f -r /usr/bin/reboot_bbuser
-rm -f -r /usr/bin/deleteSeedboxUser
+sudo rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
+sudo rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
+sudo rm -f -r /usr/bin/reboot_bbuser
+sudo rm -f -r /usr/bin/deleteSeedboxUser
 
 echo "Törlés sikeres."
 echo "Letöltés indul.."
@@ -31,10 +30,10 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v
 
 sudo chmod -R 755 /var/www/
 
-mv /var/www/deleteSeedboxUser /usr/bin/deleteSeedboxUser
-mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
+sudo mv /var/www/deleteSeedboxUser /usr/bin/deleteSeedboxUser
+sudo mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
 
 sudo chown -R www-data:www-data /var/www/
 
 echo "Frissítés sikeres!"
-rm -f -r update
+sudo rm -f -r update
