@@ -236,12 +236,12 @@ perl -pi -e "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
 perl -pi -e "s/X11Forwarding yes/X11Forwarding no/g" /etc/ssh/sshd_config
 
 groupadd sshdusers
-echo "" | tee -a /etc/ssh/sshd_config > /dev/null
-echo "UseDNS no" | tee -a /etc/ssh/sshd_config > /dev/null
-echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config
-sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/
+echo "" | tee -a /etc/ssh/sshd_config >> $logfile 2>&1
+echo "UseDNS no" | tee -a /etc/ssh/sshd_config >> $logfile 2>&1
+echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config >> $logfile 2>&1
+sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/ >> $logfile 2>&1
 #awk -F: '$3 == 1000 {print $1}' /etc/passwd | xargs usermod --groups sshdusers
-service ssh restart
+service ssh restart >> $logfile 2>&1
 
 # 6.
 #remove cdrom from apt so it doesn't stop asking for it
