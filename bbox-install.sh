@@ -4,16 +4,15 @@
 # ---------------------------
 #
 # |--------------------------------------------------------------|
-# | The script thank you for Notos (notos.korsan@gmail.com)      |
+# | The script was developed Tiby08 (tiby0108@gmail.com)         |
 # |--------------------------------------------------------------|
-# | The script was further developed Tiby08 (tiby0108@gmail.com) |
-# |--------------------------------------------------------------|
-# | Version info: v1 beta                                      |
+# | Version info: v0.1 beta                                      |
 # |--------------------------------------------------------------|
 #
 #
   SBFSCURRENTVERSION1=1  
   OS1=$(lsb_release -si)
+  logfile="/dev/null"
 bldblk='\e[1;30m' # Black - Bold
 bldred='\e[1;31m' # Red
 bldgrn='\e[1;32m' # Green
@@ -23,6 +22,7 @@ bldpur='\e[1;35m' # Purple
 bldcyn='\e[1;36m' # Cyan
 bldwht='\e[1;37m' # White
 txtrst='\e[0m'    # Text Reset
+apt-get --yes install lsb-release >> $logfile 2>&1
 
 function getString
 {
@@ -116,8 +116,6 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 
-clear
-
 # 1.
 
 #localhost is ok this rtorrent/rutorrent installation
@@ -130,13 +128,14 @@ PASSWORD2=b
 
 clear
 
-echo -e "${txtylw}#${txtrst}"
-   echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
-   echo -e "${txtylw}# | The script thank you for Notos (notos.korsan@gmail.com)      |${txtrst}"
-   echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
-   echo -e "${txtylw}# | The script was further developed Tiby08 (tiby0108@gmail.com) |${txtrst}"
-   echo -e "${txtylw}# |--------------------------------------------------------------|${txtrst}"
-echo -e "${txtylw}#${txtrst}"
+txtrst='\e[0m'    # Text Reset
+echo -e "\e[1;33m#${txtrst}"
+   echo -e "\e[1;33m# |--------------------------------------------------------------|"
+   echo -e "# | The script was developed Tiby08 (tiby0108@gmail.com)         |"
+   echo -e "# |--------------------------------------------------------------|"
+   echo -e "# | Version info: v1 beta                                        |"
+   echo -e "# |--------------------------------------------------------------|"
+echo -e "#${txtrst}"
 echo
 getString NO  "SeedBox username:" NEWUSER1 $1
 getString NO "SeedBox user($NEWUSER1) password:" PASSWORD1 $2
@@ -197,13 +196,23 @@ else
   LIBTORRENT1=0.12.9
 fi
 
-apt-get --yes install whois sudo makepasswd git
+echo -e "\e[1;33m# |--------------------------------------------------------------|\e[1;35m"
+echo -e "\e[1;35m" >> $logfile
+echo -n "Installing started.."
 
-rm -f -r /etc/bbox
-git clone -b v$SBFSCURRENTVERSION1 https://github.com/fjdhgjaf/bbox.git /etc/bbox
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Packets update progress.."
+apt-get --yes install git whois sudo makepasswd nano >> $logfile 2>&1
+
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Clone github files.."
+rm -f -r /etc/bbox >> $logfile 2>&1
+git clone -b v$SBFSCURRENTVERSION1 https://github.com/fjdhgjaf/bbox.git /etc/bbox >> $logfile 2>&1
 mkdir -p cd /etc/bbox/source
 mkdir -p cd /etc/bbox/users
 
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Files copying progress.."
 if [ ! -f /etc/bbox/bbox-install.sh ]; then
   clear
   echo Looks like somethig is wrong, this script was not able to download its whole git repository.
@@ -215,12 +224,11 @@ chmod -R 755 /etc/bbox/
 # 3.1
 
 cp /etc/apt/sources.list /root/old_sources.list
-rm -f /etc/apt/sources.list
+rm -f /etc/apt/sources.list >> $logfile 2>&1
 cp /etc/bbox/ubuntu.1204-precise.etc.apt.sources.list.template /etc/apt/sources.list
 
-#show all commands
-set -x verbose
-
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "SSH config.."
 # 4.
 #perl -pi -e "s/Port 22/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
 #perl -pi -e "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
@@ -228,13 +236,12 @@ perl -pi -e "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
 perl -pi -e "s/X11Forwarding yes/X11Forwarding no/g" /etc/ssh/sshd_config
 
 groupadd sshdusers
-echo "" | tee -a /etc/ssh/sshd_config > /dev/null
-echo "UseDNS no" | tee -a /etc/ssh/sshd_config > /dev/null
-echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config
+echo "" | tee -a /etc/ssh/sshd_config >> $logfile 2>&1
+echo "UseDNS no" | tee -a /etc/ssh/sshd_configv >> $logfile 2>&1
+echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config >> $logfile 2>&1
 sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/
-awk -F: '$3 == 1000 {print $1}' /etc/passwd | xargs usermod --groups sshdusers
 
-service ssh restart
+service ssh restart >> $logfile 2>&1
 
 # 6.
 #remove cdrom from apt so it doesn't stop asking for it
@@ -247,14 +254,18 @@ perl -pi -e "s/squeeze-updates main/squeeze-updates  main contrib non-free/g" /e
 # 7.
 # update and upgrade packages
 
-apt-get --yes update
-apt-get --yes upgrade
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Install all need package.."
+apt-get --yes update >> $logfile 2>&1
+apt-get --yes upgrade >> $logfile 2>&1
 
 # 8.
 #install all needed packages
 
 ##apt-get --yes build-dep znc
-apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php5 php5-cli php5-dev php5-curl php5-geoip php5-mcrypt php5-gd php5-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake1.9 flex bison debhelper binutils-gold libav-tools libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump
+#apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config php5 php5-cli php5-dev php5-curl php5-geoip php5-mcrypt php5-gd php5-xmlrpc pkg-config python-scgi screen ssl-cert subversion texinfo unzip zlib1g-dev expect joe automake1.9 flex bison debhelper binutils-gold libav-tools libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl znc tcpdump
+
+apt-get --yes install apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev curl cfv quota mktorrent dtach htop irssi libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev libterm-readline-gnu-perl libsigc++-2.0-dev libperl-dev openvpn libssl-dev libtool libxml2-dev ncurses-base ncurses-term ntp openssl patch libc-ares-dev pkg-config pkg-config python-scgi ssl-cert subversion texinfo unzip zlib1g-dev expect flex bison debhelper binutils-gold libarchive-zip-perl libnet-ssleay-perl libhtml-parser-perl libxml-libxml-perl libjson-perl libjson-xs-perl libxml-libxslt-perl libxml-libxml-perl libjson-rpc-perl libarchive-zip-perl tcpdump >> $logfile 2>&1
 if [ $? -gt 0 ]; then
   set +x verbose
   echo -e "${bldred}#${txtrst}"
@@ -275,88 +286,82 @@ if [ $? -gt 0 ]; then
   set -e
   exit 1
 fi
-apt-get --yes install zip
-apt-get --yes install python-software-properties
+apt-get --yes install libapache2-mod-php5 php5 php5-cli php5-dev php5-curl php5-geoip php5-mcrypt php5-gd php5-xmlrpc >> $logfile 2>&1
+apt-get --yes install screen >> $logfile 2>&1
+apt-get --yes install proftpd iotop htop irssi mediainfo mc nano lftp vnstat vnstati >> $logfile 2>&1
 
-apt-get --yes install rar
+apt-get --yes install zip >> $logfile 2>&1
+apt-get --yes install python-software-properties >> $logfile 2>&1
+apt-get --yes install automake1.9 >> $logfile 2>&1
+
+apt-get --yes install rar >> $logfile 2>&1
 if [ $? -gt 0 ]; then
-  apt-get --yes install rar-free
+  apt-get --yes install rar-free >> $logfile 2>&1
 fi
 
-apt-get --yes install unrar
+apt-get --yes install unrar >> $logfile 2>&1
 if [ $? -gt 0 ]; then
-  apt-get --yes install unrar-free
+  apt-get --yes install unrar-free >> $logfile 2>&1
 fi
 
-apt-get --yes install dnsutils
-
-if [ "$CHROOTJAIL1" = "YES" ]; then
-  cd /etc/bbox
-  tar xvfz jailkit-2.15.tar.gz -C /etc/bbox/source/
-  cd source/jailkit-2.15
-  ./debian/rules binary
-  cd ..
-  dpkg -i jailkit_2.15-1_*.deb
-fi
-
-# 8.1 additional packages for Ubuntu
-# this is better to be apart from the others
-apt-get --yes install php5-fpm
-apt-get --yes install php5-xcache
-apt-get --yes install landscape-common
+apt-get --yes install dnsutils >> $logfile 2>&1
 
 #Check if its Debian an do a sysvinit by upstart replacement:
 
 if [ "$OS1" = "Debian" ]; then
-  echo 'Yes, do as I say!' | apt-get -y --force-yes install upstart
+  echo 'Yes, do as I say!' | apt-get -y --force-yes install upstart >> $logfile 2>&1
 fi
 
 # 8.3 Generate our lists of ports and RPC and create variables
 
 #permanently adding scripts to PATH to all users and root
-echo "PATH=$PATH:/etc/bbox:/sbin" | tee -a /etc/profile > /dev/null
+echo "PATH=$PATH:/etc/bbox:/sbin" | tee -a /etc/profile >> $logfile 2>&1
 echo "export PATH" | tee -a /etc/profile > /dev/null
-echo "PATH=$PATH:/etc/bbox:/sbin" | tee -a /root/.bashrc > /dev/null
-echo "export PATH" | tee -a /root/.bashrc > /dev/null
+echo "PATH=$PATH:/etc/bbox:/sbin" | tee -a /root/.bashrc >> $logfile 2>&1
+echo "export PATH" | tee -a /root/.bashrc >> $logfile 2>&1
 
-rm -f /etc/bbox/ports.txt
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Generation port.."
+rm -f /etc/bbox/ports.txt >> $logfile 2>&1
 for i in $(seq 51101 51999)
 do
-  echo "$i" | tee -a /etc/bbox/ports.txt > /dev/null
+  echo "$i" | tee -a /etc/bbox/ports.txt >> $logfile
 done
 
-rm -f /etc/bbox/rpc.txt
+rm -f /etc/bbox/rpc.txt >> $logfile 2>&1
 for i in $(seq 2 1000)
 do
-  echo "RPC$i"  | tee -a /etc/bbox/rpc.txt > /dev/null
+  echo "RPC$i"  | tee -a /etc/bbox/rpc.txt >> $logfile
 done
 
 # 8.4
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Webmin installing.."
 
 if [ "$INSTALLWEBMIN1" = "YES" ]; then
   #if webmin isup, download key
   WEBMINDOWN=YES
-  ping -c1 -w2 www.webmin.com > /dev/null
+  ping -c1 -w2 www.webmin.com >> $logfile
   if [ $? = 0 ] ; then
     ##wget -t 5 http://www.webmin.com/jcameron-key.asc
-    cp /etc/bbox/jcameron-key.asc /root/jcameron-key.asc
-	apt-key add jcameron-key.asc
+    cp /etc/bbox/jcameron-key.asc /root/jcameron-key.asc >> $logfile 2>&1
+	apt-key add jcameron-key.asc >> $logfile 2>&1
     if [ $? = 0 ] ; then
       WEBMINDOWN=NO
     fi
   fi
 
   if [ "$WEBMINDOWN" = "NO" ]; then
-    apt-get --yes update
-    apt-get --yes install webmin
+    apt-get --yes update >> $logfile 2>&1
+    apt-get --yes install webmin >> $logfile 2>&1
   fi
 fi
 
 if [ "$INSTALLFAIL2BAN1" = "YES" ]; then
-  apt-get --yes install fail2ban
+  apt-get --yes install fail2ban >> $logfile 2>&1
   cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.original
   cp /etc/bbox/etc.fail2ban.jail.conf.template /etc/fail2ban/jail.conf
-  fail2ban-client reload
+  fail2ban-client reload >> $logfile 2>&1
 fi
 
 # 9.
@@ -364,28 +369,45 @@ fi
 #a2enmod scgi ############### if we cant make python-scgi works
 
 # 10.
-
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Apache configuration.."
 #remove timeout if  there are any
 perl -pi -e "s/^Timeout [0-9]*$//g" /etc/apache2/apache2.conf
 
-echo "" | tee -a /etc/apache2/apache2.conf > /dev/null
-echo "#seedbox values" | tee -a /etc/apache2/apache2.conf > /dev/null
-echo "" | tee -a /etc/apache2/apache2.conf > /dev/null
-echo "" | tee -a /etc/apache2/apache2.conf > /dev/null
-echo "ServerSignature Off" | tee -a /etc/apache2/apache2.conf > /dev/null
-echo "ServerTokens Prod" | tee -a /etc/apache2/apache2.conf > /dev/null
-echo "Timeout 30" | tee -a /etc/apache2/apache2.conf > /dev/null
+echo "" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+echo "#seedbox values" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+echo "" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+echo "" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+echo "ServerSignature Off" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+echo "ServerTokens Prod" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+echo "Timeout 30" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
 #########BELESZERK
-apt-get --yes install libapache2-mod-scgi
-a2enmod ssl
-a2enmod auth_digest
-a2enmod reqtimeout
-a2enmod rewrite
-a2enmod scgi
+apt-get --yes install libapache2-mod-scgi >> $logfile 2>&1
+a2enmod ssl >> $logfile 2>&1
+a2enmod auth_digest >> $logfile 2>&1
+a2enmod reqtimeout >> $logfile 2>&1
+a2enmod rewrite >> $logfile 2>&1
+a2enmod scgi >> $logfile 2>&1
+a2ensite default-ssl >> $logfile 2>&1
 
-service apache2 restart
+perl -pi -e "s/memory_limit = 128M/memory_limit = 12048M/g" /etc/php5/apache2/php.ini
 
-echo "$IPADDRESS1" > /etc/bbox/hostname.info
+# 13.
+mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI >> $logfile 2>&1
+rm -f /etc/apache2/sites-available/default >> $logfile 2>&1
+
+cp /etc/bbox/etc.apache2.default.template /etc/apache2/sites-available/default
+perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default >> $logfile 2>&1
+perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default >> $logfile 2>&1
+perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default >> $logfile 2>&1
+
+echo "ServerName $IPADDRESS1" | tee -a /etc/apache2/apache2.conf >> $logfile 2>&1
+
+service apache2 restart >> $logfile 2>&1
+
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "SSL configuration.."
+echo "$IPADDRESS1" > /etc/bbox/hostname.info >> $logfile 2>&1
 
 # 11.
 
@@ -394,33 +416,19 @@ export CERTPASS1=@@$TEMPHOSTNAME1.$NEWUSER1.ServerP7s$
 export NEWUSER1
 export IPADDRESS1
 
-echo "$NEWUSER1" > /etc/bbox/mainuser.info
-echo "$CERTPASS1" > /etc/bbox/certpass.info
+echo "$NEWUSER1" > /etc/bbox/mainuser.info >> $logfile 2>&1
+echo "$CERTPASS1" > /etc/bbox/certpass.info >> $logfile 2>&1
 
-bash /etc/bbox/createOpenSSLCACertificate
+bash /etc/bbox/createOpenSSLCACertificate >> $logfile 2>&1
 
 mkdir -p /etc/ssl/private/
-openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/bbox/ssl/CA/caconfig.cnf
-
-# 13.
-mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
-rm -f /etc/apache2/sites-available/default
-
-cp /etc/bbox/etc.apache2.default.template /etc/apache2/sites-available/default
-perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default
-perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default
-perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default
-
-echo "ServerName $IPADDRESS1" | tee -a /etc/apache2/apache2.conf > /dev/null
-
-# 14.
-a2ensite default-ssl
+openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/bbox/ssl/CA/caconfig.cnf >> $logfile 2>&1
 
 cd /var/www/
 
-rm -f -r rutorrent
-##########svn checkout https://github.com/Novik/ruTorrent/trunk rutorrent
-##########cp /etc/bbox/action.php.template /var/www/rutorrent/plugins/diskspace/action.php
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Rutorrent configuration.."
+rm -f -r rutorrent >> $logfile 2>&1
 cp /etc/bbox/rutorrent.tar.gz /var/www/rutorrent.tar.gz
 tar xf rutorrent.tar.gz
 rm -f -r rutorrent.tar.gz
@@ -438,62 +446,61 @@ echo "www-data ALL=(ALL:ALL) NOPASSWD: ALL" | tee -a /etc/sudoers > /dev/null
 
 # 26.
 cd /tmp
-wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.56_GNU_FromSource.tar.bz2
-tar jxvf MediaInfo_CLI_0.7.56_GNU_FromSource.tar.bz2
+wget http://downloads.sourceforge.net/mediainfo/MediaInfo_CLI_0.7.56_GNU_FromSource.tar.bz2 >> $logfile 2>&1
+tar jxvf MediaInfo_CLI_0.7.56_GNU_FromSource.tar.bz2 >> $logfile 2>&1
 cd MediaInfo_CLI_GNU_FromSource/
-sh CLI_Compile.sh
+sh CLI_Compile.sh >> $logfile 2>&1
 cd MediaInfo/Project/GNU/CLI
-make install
+make install >> $logfile 2>&1
 
 cd /var/www/rutorrent/plugins
 ##mkdir -p /var/www/rutorrent/plugins/autodl-irssi/
 #svn co https://svn.code.sf.net/p/autodl-irssi/code/trunk/rutorrent/autodl-irssi
 ##mv /etc/bbox/autodl/autodl-irssi/ /var/www/rutorrent/plugins/autodl-irssi/
 cd /var/www/rutorrent/plugins/
-git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi
+git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi >> $logfile 2>&1
 
 # Installing Filemanager and MediaStream
 
-rm -f -R /var/www/rutorrent/plugins/filemanager
-rm -f -R /var/www/rutorrent/plugins/fileupload
-rm -f -R /var/www/rutorrent/plugins/mediastream
+rm -f -R /var/www/rutorrent/plugins/filemanager >> $logfile 2>&1
+rm -f -R /var/www/rutorrent/plugins/fileupload >> $logfile 2>&1
+rm -f -R /var/www/rutorrent/plugins/mediastream >> $logfile 2>&1
 rm -f -R /var/www/stream
 
-cd /var/www/rutorrent/plugins/
+cd /var/www/
+git clone https://github.com/nelu/rutorrent-thirdparty-plugins.git stable >> $logfile 2>&1
+cd stable
+cp -R filemanager fileshare fileupload mediastream /var/www/rutorrent/plugins/
+#sleep 3
+#cp -R /var/www/rutorrent-thirdparty-plugins/filemanager /var/www/rutorrent/plugins/filemanager/ >> $logfile 
+#cp -R /var/www/rutorrent-thirdparty-plugins/fileshare /var/www/rutorrent/plugins/fileshare/ >> $logfile 
+#cp -R /var/www/rutorrent-thirdparty-plugins/fileupload /var/www/rutorrent/plugins/fileupload/ >> $logfile 
+#cp -R /var/www/rutorrent-thirdparty-plugins/mediastream /var/www/rutorrent/plugins/mediastream/ >> $logfile 
+#rm -f -R /var/www/rutorrent-thirdparty-plugins/
+rm -f -R /var/www/stable
 
-git clone https://github.com/nelu/rutorrent-thirdparty-plugins.git
-cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/filemanager /var/www/rutorrent/plugins/filemanager/
-cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/fileshare /var/www/rutorrent/plugins/fileshare/
-cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/fileupload /var/www/rutorrent/plugins/fileupload/
-cp -avr /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/mediastream /var/www/rutorrent/plugins/mediastream/
-rm -f -R /var/www/rutorrent/pluginds/rutorrent-thirdparty-plugins/
 
-
-cp /etc/bbox/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php
+cp -R /etc/bbox/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php >> $logfile 
 
 # Mobile apps
 cd /var/www/rutorrent/plugins/
-git clone https://github.com/xombiemp/rutorrentMobile.git mobile
+git clone https://github.com/xombiemp/rutorrentMobile.git mobile >> $logfile 2>&1
 
 perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
 perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
 perl -pi -e "s/\\\$topDirectory/\\\$homeDirectory/g" /var/www/rutorrent/plugins/filemanager/settings.js.php
 
 cd /var/www/rutorrent/plugins/
-rm -r /var/www/rutorrent/plugins/fileshare
-rm -r /var/www/share
+# rm -f -r /var/www/rutorrent/plugins/fileshare >> $logfile 2>&1
+rm -f -r /var/www/share >> $logfile 2>&1
 mkdir /var/www/share
-ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php
-ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php
+ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/share.php >> $logfile 2>&1
+ln -s /var/www/rutorrent/plugins/fileshare/share.php /var/www/share/index.php >> $logfile 2>&1
 chown -R www-data:www-data /var/www/share
-cp /etc/bbox/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php
+cp -R /etc/bbox/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php >> $logfile 2>&1
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
 
 # 30.
-
-cp /etc/jailkit/jk_init.ini /etc/jailkit/jk_init.ini.original
-echo "" | tee -a /etc/jailkit/jk_init.ini >> /dev/null
-bash /etc/bbox/updatejkinit
 
 # 31.
 
@@ -517,7 +524,7 @@ perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"\"\;/g" /var/www/rut
 
 
 
-bash /etc/bbox/updateExecutables
+bash /etc/bbox/updateExecutables >> $logfile 2>&1
 
 #34.
 
@@ -529,30 +536,31 @@ echo $NEWSSHPORT1 > /etc/bbox/ssh.info
 # 36.
 
 wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt
-update-ca-certificates
-c_rehash
+update-ca-certificates >> $logfile 2>&1
+c_rehash >> $logfile 2>&1
 
 # 96.
 
 if [ "$INSTALLOPENVPN1" = "YES" ]; then
-  bash /etc/bbox/installOpenVPN
+  bash /etc/bbox/installOpenVPN >> $logfile 2>&1
 fi
 
 if [ "$INSTALLSABNZBD1" = "YES" ]; then
-  bash /etc/bbox/installSABnzbd
+  bash /etc/bbox/installSABnzbd >> $logfile 2>&1
 fi
 
 if [ "$INSTALLRAPIDLEECH1" = "YES" ]; then
-  bash /etc/bbox/installRapidleech
+  bash /etc/bbox/installRapidleech >> $logfile 2>&1
 fi
 
 if [ "$INSTALLDELUGE1" = "YES" ]; then
-  bash /etc/bbox/installDeluge
+  bash /etc/bbox/installDeluge >> $logfile 2>&1
 fi
 
 # 99.
-apt-get --yes install proftpd iotop htop irssi mediainfo mc nano lftp vnstat vnstati
-clear
+
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "New function configuration.."
 
 cp /etc/bbox/createSeedboxUser /usr/bin/createSeedboxUser
 cp /etc/bbox/changeUserPassword /usr/bin/changeUserPassword
@@ -586,50 +594,19 @@ fi
 perl -pi -e "s/100/0/g" /var/www/rutorrent/plugins/throttle/throttle.php
 
 
-sudo addgroup root sshdusers
-
+sudo addgroup root sshdusers >> $logfile
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "rTorrent + libtorrent configuration.."
 ################################################x
 ##Új config rész
 ################################################x
-cd /etc/bbox/source
-wget http://launchpadlibrarian.net/85191944/libdigest-sha1-perl_2.13-2build2_amd64.deb
-sudo dpkg -i libdigest-sha1-perl_2.13-2build2_amd64.deb
-
-##sudo svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-##sudo wget http://libtorrent.rakshasa.no/downloads/libtorrent-0.13.4.tar.gz
-mkdir -p /etc/bbox/source/xmlrpc-c
-cp /etc/bbox/xmlrpc.zip /etc/bbox/source/xmlrpc-c/xmlrpc.zip
-cd /etc/bbox/source/xmlrpc-c
-unzip /etc/bbox/source/xmlrpc-c/xmlrpc.zip
-
-cd /etc/bbox/source
-
-tar xf libtorrent-0.13.2.tar.gz
-##sudo wget http://libtorrent.rakshasa.no/downloads/rtorrent-0.9.4.tar.gz
-tar xvf rtorrent-0.9.2.tar.gz
-
-chmod -R 755 /etc/bbox/source/
-
-cd /etc/bbox/source/xmlrpc-c
-./configure --libdir=/usr/local/lib --disable-cplusplus --disable-libwww-client --disable-wininet-client --disable-cgi-server --enable-libxml2-backend 
-make -j 8 && make install
-updatedb
-
-cd /etc/bbox/source/libtorrent-0.13.2
-sudo ./autogen.sh
-sudo ./configure --libdir=/usr/local/lib --disable-debug --with-posix-fallocate --enable-ipv6 --enable-arch=native --with-address-space=4096
-make -j 8 && make install
-
-cd /etc/bbox/source/rtorrent-0.9.2
-sudo ./autogen.sh
-sudo ./configure --libdir=/usr/local/lib --disable-debug --with-xmlrpc-c --with-ncurses --enable-ipv6 --enable-arch=native
-make -j 8 && make install
-sudo ldconfig
-apt-get install locate --yes
-updatedb
+bash /etc/bbox/installRTorrent $RTORRENT1 >> $logfile 2>&1
 ################################################x
 ##Új config rész vége
 ################################################x
+
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Add new configuration with rtorrent.."
 
 if [ "$INSTALLVNC1" = "YES" ]; then
   bash /etc/bbox/InstallVNC $NEWUSER1 $PASSWORD1
@@ -655,16 +632,6 @@ if [ "$INSTALLTRANSMISSION1" = "YES" ]; then
   bash /etc/bbox/InstallTransmission $NEWUSER1
 fi
 
-
-# 97.
-
-#first user will not be jailed
-#  createSeedboxUser <username> <password> <user jailed?> <ssh access?> <?>
-
-
-# 98.
-
-clear
 cd ~
 echo " * soft nofile 999999" | tee -a /etc/security/limits.conf > /dev/null
 echo " * hard nofile 999999" | tee -a /etc/security/limits.conf > /dev/null
@@ -672,9 +639,9 @@ echo "session required pam_limits.so" | tee -a /etc/pam.d/common-session* > /dev
 echo "session required pam_limits.so" | tee -a /etc/pam.d/common-session > /dev/null
 
 if [ "$SHAREDSEEDBOX1" = "YES" ]; then
-	bash createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES
+	bash createSeedboxUser $NEWUSER1 $PASSWORD1 YES YES YES >> $logfile 2>&1 
 else
-	bash createSeedboxUser $NEWUSER1 $PASSWORD1 NO NO NO
+	bash createSeedboxUser $NEWUSER1 $PASSWORD1 NO NO NO >> $logfile 2>&1 
 	perl -pi -e "s/USERHASSSHACCESS1=YES/USERHASSSHACCESS1=NO/g" /etc/bbox/createSeedboxUser
 	perl -pi -e "s/USERINSUDOERS1=YES/USERINSUDOERS1=NO/g" /etc/bbox/createSeedboxUser
 
@@ -682,37 +649,29 @@ else
 	perl -pi -e "s/USERINSUDOERS1=YES/USERINSUDOERS1=NO/g" /usr/bin/createSeedboxUser
 fi
 
-clear
-bldgrn='\e[1;32m' # Green
-txtrst='\e[0m'    # Text Reset
-echo -e "${bldgrn}#${txtrst}"
-echo -e "${bldgrn}# |--------------------------------------------------------------|${txtrst}"
-echo -e "${bldgrn}# | The script thank you for Notos (notos.korsan@gmail.com)      |${txtrst}"
-echo -e "${bldgrn}# |--------------------------------------------------------------|${txtrst}"
-echo -e "${bldgrn}# | The script was further developed Tiby08 (tiby0108@gmail.com) |${txtrst}"
-echo -e "${bldgrn}# |--------------------------------------------------------------|${txtrst}"
-echo -e "${bldgrn}#"
-echo ""
-echo ""
-echo -e "${txtrst}System will reboot now, but don't close this window until you take note of the port number: $NEWSSHPORT1"
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n  "Final steps.."
+bash /etc/bbox/ChangeDNS $IPADDRESS1 >> $logfile 2>&1 
 
-perl -pi -e "s/memory_limit = 128M/memory_limit = 12048M/g" /etc/php5/apache2/php.ini
-service apache2 restart
-
-bash /etc/bbox/ChangeDNS $IPADDRESS1
-bash /etc/bbox/InstallCpan
-bash /etc/bbox/egyeb/updateRutorrent
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n "Cpan configuration.."
+bash /etc/bbox/InstallCpan >> $logfile 2>&1 
+bash /etc/bbox/egyeb/updateRutorrent >> $logfile 2>&1 
 
 cd /var/www/rutorrent/plugins/
-git clone https://github.com/xombiemp/rutorrentMobile.git mobile
-
-bash /etc/bbox/egyeb/upgradetech
-bash /etc/bbox/egyeb/ApiUpd
-bash /etc/bbox/egyeb/update
+git clone https://github.com/xombiemp/rutorrentMobile.git mobile >> $logfile 2>&1 
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n  "configuration is finalized.."
+bash /etc/bbox/egyeb/upgradetech >> $logfile 2>&1
+bash /etc/bbox/egyeb/ApiUpd >> $logfile 2>&1
+bash /etc/bbox/egyeb/update >> $logfile 2>&1
 
 rm -f -r ~/bbox-install.sh
-bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh
+echo -e "\e[1;32mDone!\e[1;35m"
+echo -n  "Rebooting now.."
+bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh >> $logfile 2>&1
+sleep 5
+echo -e "\e[1;32mDone!\e[0m"
 
-reboot
-
+reboot -f
 ##################### LAST LINE ###########
