@@ -195,6 +195,7 @@ if [ "$RTORRENT1" = "0.9.2" ]; then
 else
   LIBTORRENT1=0.12.9
 fi
+apt-get --yes update >> $logfile 2>&1
 
 echo -e "\e[1;33m# |--------------------------------------------------------------|\e[1;35m"
 echo -e "\e[1;35m" >> $logfile
