@@ -232,14 +232,14 @@ echo -n "SSH config.."
 # 4.
 #perl -pi -e "s/Port 22/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
 #perl -pi -e "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
-perl -pi -e "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
-perl -pi -e "s/X11Forwarding yes/X11Forwarding no/g" /etc/ssh/sshd_config
+perl -pi -e "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config >> $logfile
+perl -pi -e "s/X11Forwarding yes/X11Forwarding no/g" /etc/ssh/sshd_config >> $logfile
 
 groupadd sshdusers
-echo "" | tee -a /etc/ssh/sshd_config >> $logfile 2>&1
-echo "UseDNS no" | tee -a /etc/ssh/sshd_configv >> $logfile 2>&1
-echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config >> $logfile 2>&1
-sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/
+echo "" | tee -a /etc/ssh/sshd_config >> $logfile
+echo "UseDNS no" | tee -a /etc/ssh/sshd_configv >> $logfile
+echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config >> $logfile
+sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/ >> $logfile
 
 service ssh restart >> $logfile 2>&1
 
@@ -535,7 +535,7 @@ echo $NEWSSHPORT1 > /etc/bbox/ssh.info
 
 # 36.
 
-wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt
+wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt >> $logfile 2>&1
 update-ca-certificates >> $logfile 2>&1
 c_rehash >> $logfile 2>&1
 
