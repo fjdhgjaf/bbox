@@ -239,7 +239,7 @@ groupadd sshdusers
 echo "" | tee -a /etc/ssh/sshd_config >> $logfile
 echo "UseDNS no" | tee -a /etc/ssh/sshd_configv >> $logfile
 echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config >> $logfile
-sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/ >> $logfile
+sudo cp -R /lib/terminfo/l/linux /usr/share/terminfo/l/ >> $logfile
 
 service ssh restart >> $logfile 2>&1
 
