@@ -6,11 +6,11 @@
 # |--------------------------------------------------------------|
 # | The script was developed Tiby08 (tiby0108@gmail.com)         |
 # |--------------------------------------------------------------|
-# | Version info: v0.1 beta                                      |
+# | Version info: v2 beta                                        |
 # |--------------------------------------------------------------|
 #
 #
-  SBFSCURRENTVERSION1=1  
+  SBFSCURRENTVERSION1=2
   OS1=$(lsb_release -si)
   logfile="/dev/null"
 bldblk='\e[1;30m' # Black - Bold
@@ -133,7 +133,7 @@ echo -e "\e[1;33m#${txtrst}"
    echo -e "\e[1;33m# |--------------------------------------------------------------|"
    echo -e "# | The script was developed Tiby08 (tiby0108@gmail.com)         |"
    echo -e "# |--------------------------------------------------------------|"
-   echo -e "# | Version info: v1 beta                                        |"
+   echo -e "# | Version info: v2 beta                                        |"
    echo -e "# |--------------------------------------------------------------|"
 echo -e "#${txtrst}"
 echo
