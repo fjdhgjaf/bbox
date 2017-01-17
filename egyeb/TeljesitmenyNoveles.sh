@@ -49,4 +49,4 @@ wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19c
 chown -R www-data:www-data /var/www/
 chmod -R 755 /var/www/
 
-reboot
+reboot -f

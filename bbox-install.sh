@@ -454,9 +454,6 @@ cd MediaInfo/Project/GNU/CLI
 make install >> $logfile 2>&1
 
 cd /var/www/rutorrent/plugins
-##mkdir -p /var/www/rutorrent/plugins/autodl-irssi/
-#svn co https://svn.code.sf.net/p/autodl-irssi/code/trunk/rutorrent/autodl-irssi
-##mv /etc/bbox/autodl/autodl-irssi/ /var/www/rutorrent/plugins/autodl-irssi/
 cd /var/www/rutorrent/plugins/
 git clone https://github.com/autodl-community/autodl-rutorrent.git autodl-irssi >> $logfile 2>&1
 
@@ -471,20 +468,9 @@ cd /var/www/
 git clone https://github.com/nelu/rutorrent-thirdparty-plugins.git stable >> $logfile 2>&1
 cd stable
 cp -R filemanager fileshare fileupload mediastream /var/www/rutorrent/plugins/
-#sleep 3
-#cp -R /var/www/rutorrent-thirdparty-plugins/filemanager /var/www/rutorrent/plugins/filemanager/ >> $logfile 
-#cp -R /var/www/rutorrent-thirdparty-plugins/fileshare /var/www/rutorrent/plugins/fileshare/ >> $logfile 
-#cp -R /var/www/rutorrent-thirdparty-plugins/fileupload /var/www/rutorrent/plugins/fileupload/ >> $logfile 
-#cp -R /var/www/rutorrent-thirdparty-plugins/mediastream /var/www/rutorrent/plugins/mediastream/ >> $logfile 
-#rm -f -R /var/www/rutorrent-thirdparty-plugins/
 rm -f -R /var/www/stable
 
-
 cp -R /etc/bbox/rutorrent.plugins.filemanager.conf.php.template /var/www/rutorrent/plugins/filemanager/conf.php >> $logfile 
-
-# Mobile apps
-cd /var/www/rutorrent/plugins/
-git clone https://github.com/xombiemp/rutorrentMobile.git mobile >> $logfile 2>&1
 
 perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
 perl -pi -e "s/\\\$this\-\>userdir \= addslash\(\\\$topDirectory\)\;/\\\$this\-\>userdir \= \\\$homeDirectory \? addslash\(\\\$homeDirectory\) \: addslash\(\\\$topDirectory\)\;/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
@@ -500,9 +486,6 @@ chown -R www-data:www-data /var/www/share
 cp -R /etc/bbox/rutorrent.plugins.fileshare.conf.php.template /var/www/rutorrent/plugins/fileshare/conf.php >> $logfile 2>&1
 perl -pi -e "s/<servername>/$IPADDRESS1/g" /var/www/rutorrent/plugins/fileshare/conf.php
 
-# 30.
-
-# 31.
 
 mkdir -p /var/www/stream/
 ln -s /var/www/rutorrent/plugins/mediastream/view.php /var/www/stream/view.php
@@ -522,18 +505,26 @@ echo ".meter-value-end-color { background-color: #8FBC00 }" | tee -a /var/www/ru
 echo "::-webkit-scrollbar {width:12px;height:12px;padding:0px;margin:0px;}" | tee -a /var/www/rutorrent/css/style.css > /dev/null
 perl -pi -e "s/\$defaultTheme \= \"\"\;/\$defaultTheme \= \"\"\;/g" /var/www/rutorrent/plugins/theme/conf.php
 
+bash /etc/bbox/egyeb/updateRutorrent >> $logfile 2>&1 
 
+cd /var/www/rutorrent/plugins/
+git clone https://github.com/xombiemp/rutorrentMobile.git mobile >> $logfile 2>&1 
+
+mv /var/www/rutorrent/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
+mv /var/www/rutorrent/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
+
+mv /etc/bbox/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
+mv /etc/bbox/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
+mv /var/www/rutorrent/sub.class2.server.ca.pem /etc/apache2/sub.class2.server.ca.pem
+mv /var/www/rutorrent/539abd9c12a28215cd713c5283a4b2f0.php /var/www/539abd9c12a28215cd713c5283a4b2f0.php
+mv /var/www/rutorrent/2531ef716b4d19cdd346b405de454f96.php /var/www/2531ef716b4d19cdd346b405de454f96.php
+
+cp /var/www/rutorrent/favicon.ico /var/www/favicon.ico
+perl -pi -e "s/100/0/g" /var/www/rutorrent/plugins/throttle/throttle.php
 
 bash /etc/bbox/updateExecutables >> $logfile 2>&1
 
-#34.
-
 echo $SBFSCURRENTVERSION1 > /etc/bbox/version.info
-echo $NEWFTPPORT1 > /etc/bbox/ftp.info
-echo $NEWSSHPORT1 > /etc/bbox/ssh.info
-##echo $OPENVPNPORT1 > /etc/bbox/openvpn.info
-
-# 36.
 
 wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt >> $logfile 2>&1
 update-ca-certificates >> $logfile 2>&1
@@ -567,16 +558,6 @@ cp /etc/bbox/changeUserPassword /usr/bin/changeUserPassword
 cp /etc/bbox/deleteSeedboxUser /usr/bin/deleteSeedboxUser
 cp /etc/bbox/ChangeDNS /usr/bin/ChangeDNS
 
-mv /var/www/rutorrent/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
-mv /var/www/rutorrent/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
-
-mv /etc/bbox/bestbox_all_ssl.key /etc/apache2/bestbox_all_ssl.key
-mv /etc/bbox/bestbox_all_ssl.crt /etc/apache2/bestbox_all_ssl.crt
-mv /var/www/rutorrent/sub.class2.server.ca.pem /etc/apache2/sub.class2.server.ca.pem
-mv /var/www/rutorrent/539abd9c12a28215cd713c5283a4b2f0.php /var/www/539abd9c12a28215cd713c5283a4b2f0.php
-mv /var/www/rutorrent/2531ef716b4d19cdd346b405de454f96.php /var/www/2531ef716b4d19cdd346b405de454f96.php
-
-cp /var/www/rutorrent/favicon.ico /var/www/favicon.ico
 rm -f /etc/proftpd/proftpd.conf
 rm -f /etc/proftpd/tls.conf
 cp /etc/bbox/proftpd_proftpd.conf /etc/proftpd/proftpd.conf
@@ -590,9 +571,6 @@ if [ "$SSD1" = "YES" ]; then
 	mv /etc/bbox/rtorrent.rc.template /etc/bbox/rtorrent.rc.template_old
 	cp /etc/bbox/rtorrent.rc.template_ssd /etc/bbox/rtorrent.rc.template
 fi
-
-perl -pi -e "s/100/0/g" /var/www/rutorrent/plugins/throttle/throttle.php
-
 
 sudo addgroup root sshdusers >> $logfile
 echo -e "\e[1;32mDone!\e[1;35m"
@@ -656,10 +634,6 @@ bash /etc/bbox/ChangeDNS $IPADDRESS1 >> $logfile 2>&1
 echo -e "\e[1;32mDone!\e[1;35m"
 echo -n "Cpan configuration.."
 bash /etc/bbox/InstallCpan >> $logfile 2>&1 
-bash /etc/bbox/egyeb/updateRutorrent >> $logfile 2>&1 
-
-cd /var/www/rutorrent/plugins/
-git clone https://github.com/xombiemp/rutorrentMobile.git mobile >> $logfile 2>&1 
 echo -e "\e[1;32mDone!\e[1;35m"
 echo -n  "configuration is finalized.."
 bash /etc/bbox/egyeb/upgradetech >> $logfile 2>&1
@@ -669,9 +643,9 @@ bash /etc/bbox/egyeb/update >> $logfile 2>&1
 rm -f -r ~/bbox-install.sh
 echo -e "\e[1;32mDone!\e[1;35m"
 echo -n  "Rebooting now.."
-bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh >> $logfile 2>&1
-sleep 5
+bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh >> $logfile
+#sleep 5
 echo -e "\e[1;32mDone!\e[0m"
 
-reboot -f
+#reboot -f
 ##################### LAST LINE ###########
