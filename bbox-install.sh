@@ -232,16 +232,16 @@ echo -n "SSH config.."
 # 4.
 #perl -pi -e "s/Port 22/Port $NEWSSHPORT1/g" /etc/ssh/sshd_config
 #perl -pi -e "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
-perl -pi -e "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config >> $logfile
-perl -pi -e "s/X11Forwarding yes/X11Forwarding no/g" /etc/ssh/sshd_config >> $logfile
+perl -pi -e "s/#Protocol 2/Protocol 2/g" /etc/ssh/sshd_config
+perl -pi -e "s/X11Forwarding yes/X11Forwarding no/g" /etc/ssh/sshd_config
 
 groupadd sshdusers
-echo "" | tee -a /etc/ssh/sshd_config >> $logfile
-echo "UseDNS no" | tee -a /etc/ssh/sshd_configv >> $logfile
-echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config >> $logfile
-sudo cp -R /lib/terminfo/l/linux /usr/share/terminfo/l/ >> $logfile
-
-service ssh restart >> $logfile 2>&1
+echo "" | tee -a /etc/ssh/sshd_config > /dev/null
+echo "UseDNS no" | tee -a /etc/ssh/sshd_config > /dev/null
+echo "AllowGroups sshdusers" >> /etc/ssh/sshd_config
+sudo cp /lib/terminfo/l/linux /usr/share/terminfo/l/
+#awk -F: '$3 == 1000 {print $1}' /etc/passwd | xargs usermod --groups sshdusers
+service ssh restart
 
 # 6.
 #remove cdrom from apt so it doesn't stop asking for it
@@ -635,7 +635,7 @@ echo -e "\e[1;32mDone!\e[1;35m"
 echo -n "Cpan configuration.."
 bash /etc/bbox/InstallCpan >> $logfile 2>&1 
 echo -e "\e[1;32mDone!\e[1;35m"
-echo -n  "configuration is finalized.."
+echo -n  "Configuration is finalized.."
 bash /etc/bbox/egyeb/upgradetech >> $logfile 2>&1
 bash /etc/bbox/egyeb/ApiUpd >> $logfile 2>&1
 bash /etc/bbox/egyeb/update >> $logfile 2>&1
@@ -647,5 +647,5 @@ bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh >> $logfile
 #sleep 5
 echo -e "\e[1;32mDone!\e[0m"
 
-#reboot -f
+reboot -f
 ##################### LAST LINE ###########
