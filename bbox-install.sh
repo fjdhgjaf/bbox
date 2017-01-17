@@ -643,7 +643,7 @@ bash /etc/bbox/egyeb/update >> $logfile 2>&1
 rm -f -r ~/bbox-install.sh
 echo -e "\e[1;32mDone!\e[1;35m"
 echo -n  "Rebooting now.."
-bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh >> $logfile
+bash /etc/bbox/egyeb/TeljesitmenyNoveles.sh >> $logfile 2>&1
 #sleep 5
 echo -e "\e[1;32mDone!\e[0m"
 
