@@ -185,7 +185,6 @@ if [ "$RTORRENT1" != "0.9.3" ] && [ "$RTORRENT1" != "0.9.2" ] && [ "$RTORRENT1" 
   echo "$RTORRENT1 typed is not 0.9.4 or 0.9.3 or 0.9.2!"
   exit 1
 fi
-
 if [ "$RTORRENT1" = "0.9.4" ]; then
   LIBTORRENT1=0.13.4
 fi
