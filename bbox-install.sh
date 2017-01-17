@@ -424,6 +424,10 @@ bash /etc/bbox/createOpenSSLCACertificate >> $logfile 2>&1
 mkdir -p /etc/ssl/private/
 openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/bbox/ssl/CA/caconfig.cnf >> $logfile 2>&1
 
+wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt >> $logfile 2>&1
+update-ca-certificates >> $logfile 2>&1
+c_rehash >> $logfile 2>&1
+
 cd /var/www/
 
 echo -e "\e[1;32mDone!\e[1;35m"
@@ -525,10 +529,6 @@ perl -pi -e "s/100/0/g" /var/www/rutorrent/plugins/throttle/throttle.php
 bash /etc/bbox/updateExecutables >> $logfile 2>&1
 
 echo $SBFSCURRENTVERSION1 > /etc/bbox/version.info
-
-wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt >> $logfile 2>&1
-update-ca-certificates >> $logfile 2>&1
-c_rehash >> $logfile 2>&1
 
 # 96.
 
