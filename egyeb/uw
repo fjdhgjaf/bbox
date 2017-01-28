@@ -1,0 +1,19 @@
+##################### FIRST LINE
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# |--------------------------------------------------------------|
+# | The script was developed Tiby08 (tiby0108@gmail.com)         |
+# |--------------------------------------------------------------|
+# | Version info: v0.1 beta                                      |
+# |--------------------------------------------------------------|
+#
+#
+
+logfile="/dev/null"
+echo "Webmin törlése.."
+sudo apt-get --purge --yes remove webmin >> $logfile
+sudo apt-get update --yes
+echo "Webmin telepítése.."
+sudo apt-get install --yes webmin >> $logfile
