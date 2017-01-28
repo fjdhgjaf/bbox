@@ -17,3 +17,4 @@ sudo apt-get --purge --yes remove webmin >> $logfile
 sudo apt-get update --yes
 echo "Webmin telepítése.."
 sudo apt-get install --yes webmin >> $logfile
+sudo rm -f -r uw
