@@ -28,7 +28,8 @@ FelhNev=$1
 sudo pkill -U $FelhNev
 
 #quota 0-ra allitasa
-bash quota_bbset $FelhNev 0GB
+#bash quota_bbset $FelhNev 0GB
+sudo setquota -u $FelhNev 0 0 0 0 -a
 
 #felhasznalo, jelszo es osszes fajl torlese
 sudo userdel --remove --force $FelhNev 
