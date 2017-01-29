@@ -18,6 +18,7 @@ sudo rm -f -r update_bbuplugin
 sudo rm -f -r deleteSeedboxUser
 sudo rm -f -r 2531ef716b4d19cdd346b405de454f96.php
 sudo rm -f -r 539abd9c12a28215cd713c5283a4b2f0.php
+sudo rm -f -r .irssi
 
 sudo rm -f -r /usr/bin/deleteSeedboxUser
 sudo rm -f -r /usr/bin/reboot_bbuser
