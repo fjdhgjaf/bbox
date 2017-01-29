@@ -1,4 +1,4 @@
-##################### FIRST LINE
+##################################################################
 # ---------------------------
 #!/bin/bash
 # ---------------------------
@@ -6,33 +6,14 @@
 # |--------------------------------------------------------------|
 # | The script was developed Tiby08 (tiby0108@gmail.com)         |
 # |--------------------------------------------------------------|
-# | Version info: v0.1 beta                                      |
+# | Version info: v1 beta                                        |
 # |--------------------------------------------------------------|
-#
-#
+##################################################################
 
-sudo rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
-sudo rm -f -r /var/www/539abd9c12a28215cd713c5283a4b2f0.php
-sudo rm -f -r /usr/bin/reboot_bbuser
-sudo rm -f -r /usr/bin/deleteSeedboxUser
-
-echo "Törlés sikeres."
-echo "Letöltés indul.."
-sleep 1
-sudo /etc/init.d/dns-clean restart
-sudo /etc/init.d/networking force-reload
 cd /var/www/
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/539abd9c12a28215cd713c5283a4b2f0.php
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/reboot_bbuser
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/deleteSeedboxUser
-
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v2/egyeb/ApiUpd
 sudo chmod -R 755 /var/www/
-
-sudo mv /var/www/deleteSeedboxUser /usr/bin/deleteSeedboxUser
-sudo mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
-
-sudo chown -R www-data:www-data /var/www/
+bash ApiUpd >> /dev/null 2>&1
 
 echo "Frissítés sikeres!"
 sudo rm -f -r update
