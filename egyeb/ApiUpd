@@ -12,6 +12,11 @@
 #
 
 cd /var/www/
+rm -f -r reboot_bbuser
+rm -f -r clean_bbmem
+rm -f -r quota_bbset
+rm -f -r update_bbuplugin
+
 wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/reboot_bbuser
 wget -N --no-check-certificate  https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/clean_bbmem
 wget -N --no-check-certificate  https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/quota_bbset
