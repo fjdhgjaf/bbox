@@ -1,0 +1,22 @@
+##################################################################
+# ---------------------------
+#!/bin/bash
+# ---------------------------
+#
+# |--------------------------------------------------------------|
+# | The script was developed Tiby08 (tiby0108@gmail.com)         |
+# |--------------------------------------------------------------|
+# | Version info: v1 beta                                        |
+# |--------------------------------------------------------------|
+##################################################################
+
+cd /etc/apache2/
+sudo rm -f -r bestbox_all_ssl.key
+sudo rm -f -r bestbox_all_ssl.crt
+
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v2/egyeb/bestbox_all_ssl.key
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v2/egyeb/bestbox_all_ssl.crt
+
+sudo service apache2 restart
+
+sudo rm -f -r updateSSL
