@@ -203,6 +203,9 @@ $load = round($loads[0]/($core_nums + 1)*100, 2);
 	}elseif ($_GET["mit"] == "memecachetisztit"){
 		echo shell_exec("bash clean_bbmem >> /dev/null 2>&1");
 		echo "Frissítés sikeres.";
+	}elseif ($_GET["mit"] == "tmpclean"){
+		echo shell_exec("bash tmpclean >> /dev/null 2>&1");
+		echo "/tmp tisztítás sikeres.";
 	}
 }
 ?>
