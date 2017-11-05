@@ -17,3 +17,5 @@ bash ApiUpd >> /dev/null 2>&1
 
 echo "Frissítés sikeres!"
 sudo rm -f -r update
+sudo rm -f -r /root/update
+sudo rm -f -r /home/update
