@@ -12,7 +12,6 @@
 #
   SBFSCURRENTVERSION1=2
   OS1=$(lsb_release -si)
-  OSV11=$(sed 's/\..*//' /etc/debian_version)
   logfile="/dev/null"
 bldblk='\e[1;30m' # Black - Bold
 bldred='\e[1;31m' # Red
@@ -225,21 +224,8 @@ chmod -R 755 /etc/bbox/
 # 3.1
 
 cp /etc/apt/sources.list /root/old_sources.list
-perl -pi -e "s/deb cdrom/#deb cdrom/g" /etc/apt/sources.list
-perl -pi.orig -e 's/^(deb .* universe)$/$1 multiverse/' /etc/apt/sources.list
-#add non-free sources to Debian Squeeze# those two spaces below are on purpose
-perl -pi -e "s/squeeze main/squeeze  main contrib non-free/g" /etc/apt/sources.list
-perl -pi -e "s/squeeze-updates main/squeeze-updates  main contrib non-free/g" /etc/apt/sources.list
-apt-get --yes install software-properties-common >> $logfile 2>&1
-if [ "$OSV11" = "8" ]; then
-  apt-add-repository --yes "deb http://www.deb-multimedia.org jessie main non-free" >> $logfile 2>&1
-  apt-get update >> $logfile 2>&1
-  apt-get --force-yes --yes install ffmpeg >> $logfile 2>&1
-fi
-
-#rm -f /etc/apt/sources.list >> $logfile 2>&1
-
-#cp /etc/bbox/ubuntu.1204-precise.etc.apt.sources.list.template /etc/apt/sources.list
+rm -f /etc/apt/sources.list >> $logfile 2>&1
+cp /etc/bbox/ubuntu.1204-precise.etc.apt.sources.list.template /etc/apt/sources.list
 
 echo -e "\e[1;32mDone!\e[1;35m"
 echo -n "SSH config.."
@@ -343,7 +329,7 @@ do
 done
 
 rm -f /etc/bbox/rpc.txt >> $logfile 2>&1
-for i in $(seq 2 400)
+for i in $(seq 2 1000)
 do
   echo "RPC$i"  | tee -a /etc/bbox/rpc.txt >> $logfile
 done
@@ -438,26 +424,9 @@ bash /etc/bbox/createOpenSSLCACertificate >> $logfile 2>&1
 mkdir -p /etc/ssl/private/
 openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem -config /etc/bbox/ssl/CA/caconfig.cnf >> $logfile 2>&1
 
-
-# 13.
-if [ "$OSV1" = "14.04" ] || [ "$OSV1" = "14.10" ] || [ "$OSV1" = "15.04" ] || [ "$OSV1" = "15.10" ] || [ "$OSV1" = "16.04" ] || [ "$OSV11" = "8" ]; then
-  cp /var/www/html/index.html /var/www/index.html 
-  mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.ORI
-  rm -f /etc/apache2/sites-available/000-default.conf
-  cp /etc/bbox/etc.apache2.default.template /etc/apache2/sites-available/000-default.conf
- 
-  perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/000-default.conf
-  perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/000-default.conf
-  perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/000-default.conf
-else
-mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.ORI
-rm -f /etc/apache2/sites-available/default
-
-cp /etc/bbox/etc.apache2.default.template /etc/apache2/sites-available/default
-perl -pi -e "s/http\:\/\/.*\/rutorrent/http\:\/\/$IPADDRESS1\/rutorrent/g" /etc/apache2/sites-available/default
-perl -pi -e "s/<servername>/$IPADDRESS1/g" /etc/apache2/sites-available/default
-perl -pi -e "s/<username>/$NEWUSER1/g" /etc/apache2/sites-available/default
-fi
+wget -P /usr/share/ca-certificates/ --no-check-certificate https://certs.godaddy.com/repository/gd_intermediate.crt https://certs.godaddy.com/repository/gd_cross_intermediate.crt >> $logfile 2>&1
+update-ca-certificates >> $logfile 2>&1
+c_rehash >> $logfile 2>&1
 
 cd /var/www/
 
@@ -639,15 +608,6 @@ fi
 
 if [ "$INSTALLTRANSMISSION1" = "YES" ]; then
   bash /etc/bbox/InstallTransmission $NEWUSER1
-fi
-
-
-
-# 98.
-if [ "$OSV11" = "8" ]; then
-  systemctl enable apache2 >> $logfile 2>&1
-  service apache2 start >> $logfile 2>&1 
-  echo "net.core.default_qdisc = fq" >>/etc/sysctl.conf
 fi
 
 cd ~
