@@ -80,7 +80,7 @@ enabled = user-defined
 [extsearch]
 enabled = user-defined
 [filedrop]
-enabled = no
+enabled = yes
 [geoip]
 enabled = user-defined
 [httprpc]
