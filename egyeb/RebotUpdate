@@ -14,7 +14,7 @@
 
 rm -f -r /usr/bin/reboot_bbuser
 cd /var/www/
-wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v1/egyeb/reboot_bbuser
+wget -N --no-check-certificate https://raw.githubusercontent.com/fjdhgjaf/bbox/v2/egyeb/reboot_bbuser
 mv /var/www/reboot_bbuser /usr/bin/reboot_bbuser
 sudo chmod 755 /usr/bin/reboot_bbuser
 
