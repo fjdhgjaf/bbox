@@ -26,7 +26,7 @@ echo "Törlés sikeres."
 echo "Letöltés indul.."
 sleep 1
 cd /var/www/
-wget -N https://github.com/fjdhgjaf/bbox/raw/v1/egyeb/rutorrent.zip
+wget -N https://github.com/fjdhgjaf/bbox/raw/v2/egyeb/rutorrent.zip
 
 unzip /var/www/rutorrent.zip
 perl -pi -e "s/\\\$topDirectory\, \\\$fm/\\\$homeDirectory\, \\\$topDirectory\, \\\$fm/g" /var/www/rutorrent/plugins/filemanager/flm.class.php
